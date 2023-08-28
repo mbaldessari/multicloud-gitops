@@ -10,7 +10,7 @@ main:
     channel: "gitops-1.8"
     operatorSource: redhat-operators
 
-  multiSource:
+  multiSourceConfig:
     enabled: false
 
   patternsOperator:
