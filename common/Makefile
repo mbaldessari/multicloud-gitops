@@ -51,14 +51,12 @@ show: ## show the starting template without installing it
 # created first via the VP operator's UI
 .PHONY: operator-deploy
 operator-deploy operator-upgrade: validate-prereq validate-origin ## runs helm install
-	@set -e; if ! oc get crds patterns.gitops.hybrid-cloud-patterns.io >/dev/null 2>&1; then \
-	  echo "Running helm:"; \
-	  helm upgrade --install $(NAME) common/operator-install/ $(HELM_OPTS); \
-	else \
-	  echo "Reapplying helm chart:"; \
-	  helm template --name-template $(NAME) common/operator-install/ $(HELM_OPTS) | oc apply set-last-applied --create-annotation -f-; \
-	  helm template --name-template $(NAME) common/operator-install/ $(HELM_OPTS) | oc apply -f-; \
-	fi
+	@set -ex
+	echo "Reapplying helm chart:"
+	# We reapply the CRD and if it already exists we do not error out
+	oc apply common/operator-install/crds/*.yaml 2>/dev/null || /bin/true
+	helm template --name-template $(NAME) common/operator-install/ $(HELM_OPTS) | oc apply set-last-applied --create-annotation -f-
+	helm template --name-template $(NAME) common/operator-install/ $(HELM_OPTS) | oc apply -f-
 
 .PHONY: uninstall
 uninstall: ## runs helm uninstall
