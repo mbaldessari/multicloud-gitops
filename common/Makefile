@@ -44,18 +44,12 @@ help: ## This help message
 show: ## show the starting template without installing it
 	helm template common/operator-install/ --name-template $(NAME) $(HELM_OPTS)
 
-# Only call helm install if the CRD is missing. If it already exists just
-# push the templated files.
-# The reason we have two helm template calls in the else branch is to avoid
-# warnings when the chart gets applied the first time, but the resources were
-# created first via the VP operator's UI
 .PHONY: operator-deploy
 operator-deploy operator-upgrade: validate-prereq validate-origin ## runs helm install
 	@set -ex
 	echo "Reapplying helm chart:"
 	# We reapply the CRD and if it already exists we do not error out
 	oc apply common/operator-install/crds/*.yaml 2>/dev/null || /bin/true
-	helm template --name-template $(NAME) common/operator-install/ $(HELM_OPTS) | oc apply set-last-applied --create-annotation -f-
 	helm template --name-template $(NAME) common/operator-install/ $(HELM_OPTS) | oc apply -f-
 
 .PHONY: uninstall
