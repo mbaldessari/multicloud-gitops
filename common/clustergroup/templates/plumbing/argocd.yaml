@@ -15,8 +15,7 @@ spec:
 # Adding health checks to argocd to prevent pvc resources
 # that aren't bound state from blocking deployments
   resourceHealthChecks:
-  - group: ""
-    kind: PersistentVolumeClaim
+  - kind: PersistentVolumeClaim
     check: |
       hs = {}
       if obj.status ~= nil then
