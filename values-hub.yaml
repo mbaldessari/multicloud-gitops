@@ -1,6 +1,9 @@
 clusterGroup:
   name: hub
   isHubCluster: true
+  sharedValueFiles:
+    -  /values/{{ .Values.global.clusterPlatform }}.yaml
+    -  /values/{{ .Values.global.clusterVersion }}.yaml
 
   namespaces:
     - open-cluster-management
