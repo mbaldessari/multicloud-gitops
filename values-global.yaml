@@ -1,6 +1,8 @@
 ---
 global:
   pattern: multicloud-gitops
+  regionalgitops:
+    channel: gitops-1.10
 
   options:
     useCSV: false
