@@ -83,16 +83,6 @@
             }
           }
         },
-        "gitops": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "channel": {
-              "type": "string",
-              "description": "The channel from which to install the gitops operator"
-            }
-          }
-        },
         "multiSourceConfig": {
           "type": "object",
           "additionalProperties": false,
@@ -150,6 +140,20 @@
         },
         "git": {
           "$ref": "#/definitions/GlobalGit"
+        },
+        "regionalgitops": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "channel": {
+              "type": "string",
+              "description": "The channel from which to install the gitops operator. Only works for non-hub clusters"
+            },
+            "source": {
+              "type": "string",
+              "description": "The catalog source name to install the gitops operator from. Only works for non-hub clusters"
+            }
+          }
         },
         "options": {
           "$ref": "#/definitions/Options"
@@ -237,7 +241,7 @@
         "sharedValueFiles": {
             "type": "array",
             "description": "Templated value file paths."
-	},
+	    },
         "namespaces": {
           "type": "array",
           "description": "This is the array of namespaces that the VP framework will create.  In addition, operator groups will also be created for each namespace.",

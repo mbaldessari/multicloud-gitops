@@ -1,6 +1,6 @@
-main:
-  gitops:
-    channel: "gitops-1.8"
+gitops:
+  # The channel from which to install the gitops operator. Only works for non-hub clusters
+  channel: gitops-1.8
 
 global:
   extraValueFiles: []
@@ -9,11 +9,15 @@ global:
   targetRevision: main
   options:
     applicationRetryLimit: 20
+  regionalgitops:
+    channel: gitops-1.8
+    source: redhat-operators
 
 clusterGroup:
   subscriptions:
     acm:
       source: redhat-operators
+
   managedClusterGroups:
 #    testRegion:
 #      name: region-one
