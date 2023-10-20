@@ -35,10 +35,10 @@ spec:
                   labels:
                     operators.coreos.com/openshift-gitops-operator.openshift-operators: ''
                 spec:
-                  channel: {{ default "gitops-1.8" .Values.main.gitops.channel }}
+                  channel: {{ .Values.global.regionalgitops.channel }}
                   installPlanApproval: Automatic
                   name: openshift-gitops-operator
-                  source: redhat-operators
+                  source: {{ .Values.global.regionalgitops.source }}
                   sourceNamespace: openshift-marketplace
                   config:
                     env:
