@@ -96,6 +96,9 @@ spec:
           memory: 128Mi
   initialSSHKnownHosts: {}
   rbac:
+    policy.csv: |
+      g, system:cluster-admin, role:admin
+      g, cluster-admin, role:admin
     defaultPolicy: role:admin
   repo:
     resources:
