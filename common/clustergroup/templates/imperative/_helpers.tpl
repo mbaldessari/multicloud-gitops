@@ -21,11 +21,6 @@
     mountPath: "/git"
   - name: git-secret
     mountPath: "/git-secret"
-  volumes:
-  - name: git-secret
-    secret:
-      secretName: vp-private-repo-credentials
-      optional: true
 {{- end }}
 
 {{/* Final done container */}}
@@ -48,4 +43,8 @@
 - name: values-volume
   mountPath: /values/values.yaml
   subPath: values.yaml
+- name: git-secret
+  secret:
+    secretName: vp-private-repo-credentials
+    optional: true
 {{- end }}
