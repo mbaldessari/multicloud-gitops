@@ -1,3 +1,9 @@
+# Pseudo-code
+# 1. Get the pattern's CR
+# 2. If there is a secret called vp-private-repo-credentials in the current namespace, fetch it
+# 3. If it is an http secret, generate the correct URL
+# 4. If it is an ssh secret, create the private ssh key and make sure the git clone works
+
 {{/* git-init InitContainer */}}
 {{- define "imperative.initcontainers.gitinit" }}
 - name: git-init
@@ -9,16 +15,17 @@
   command:
   - 'sh'
   - '-c'
-  - >-
-    U="$(oc get secret -n openshift-gitops --selector 'argocd.argoproj.io/secret-type=repository' -o jsonpath='{.items[0].data.username}' | base64 -d)";
-    P="$(oc get secret -n openshift-gitops --selector 'argocd.argoproj.io/secret-type=repository' -o jsonpath='{.items[0].data.password}' | base64 -d)";
-    mkdir /git/{repo,home};
-    URL=$(echo {{ $.Values.global.repoURL }} | sed -E "s/(https?:\/\/)/\1${U}:${P}@/");
-    git clone --single-branch --branch {{ $.Values.global.targetRevision }} --depth 1 -- "${URL}" /git/repo;
-    chmod 0770 /git/{repo,home}
+  - "mkdir /git/{repo,home};git clone --single-branch --branch {{ $.Values.global.targetRevision }} --depth 1 -- {{ $.Values.global.repoURL }} /git/repo;chmod 0770 /git/{repo,home}"
   volumeMounts:
   - name: git
     mountPath: "/git"
+  - name: git-secret
+    mountPath: "/git-secret"
+  volumes:
+  - name: git-secret
+    secret:
+      secretName: vp-private-repo-credentials
+      optional: true
 {{- end }}
 
 {{/* Final done container */}}
