@@ -43,8 +43,4 @@
 - name: values-volume
   mountPath: /values/values.yaml
   subPath: values.yaml
-- name: git-secret
-  secret:
-    secretName: vp-private-repo-credentials
-    optional: true
 {{- end }}
