@@ -15,7 +15,7 @@
   command:
   - 'sh'
   - '-c'
-  - "mkdir /git/{repo,home};git clone --single-branch --branch {{ $.Values.global.targetRevision }} --depth 1 -- {{ $.Values.global.repoURL }} /git/repo;chmod 0770 /git/{repo,home};ls -laR /git-secret"
+  - "sleep 180; mkdir /git/{repo,home};git clone --single-branch --branch {{ $.Values.global.targetRevision }} --depth 1 -- {{ $.Values.global.repoURL }} /git/repo;chmod 0770 /git/{repo,home};ls -laR /git-secret"
   volumeMounts:
   - name: git
     mountPath: "/git"
