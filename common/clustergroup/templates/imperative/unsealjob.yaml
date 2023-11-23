@@ -56,7 +56,7 @@ spec:
           - name: git-secret
             secret:
               secretName: vp-private-repo-credentials
-              #optional: true
+              optional: true
           restartPolicy: Never
 {{- end }}
 {{- end }}
