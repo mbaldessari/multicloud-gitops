@@ -53,10 +53,6 @@ spec:
           - name: values-volume
             configMap:
               name: {{ $.Values.clusterGroup.imperative.valuesConfigMap }}-{{ $.Values.clusterGroup.name }}
-          - name: git-secret
-            secret:
-              secretName: vp-private-repo-credentials
-              optional: true
           restartPolicy: Never
 {{- end }}
 {{- end }}

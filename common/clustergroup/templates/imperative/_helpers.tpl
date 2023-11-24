@@ -16,16 +16,20 @@
   - 'sh'
   - '-c'
   - >-
+    if ! oc get secrets -n openshift-gitops vp-private-repo-credentials -o go-template='{{index .data.sshPrivateKey | base64decode}}' &>/dev/null; then
+        echo "USER/PASS";
+        URL=$(echo {{ $.Values.global.repoURL }} | sed -E "s/(https?:\/\/)/\1${U}:${P}@/");
+    else
+        echo "SSH";
+    fi;
     sleep 1800;
     mkdir /git/{repo,home};
-    git clone --single-branch --branch {{ $.Values.global.targetRevision }} --depth 1 -- {{ $.Values.global.repoURL }} /git/repo
+    git clone --single-branch --branch {{ $.Values.global.targetRevision }} --depth 1 -- "${URL}" /git/repo
     chmod 0770 /git/{repo,home}
     ls -laR /git-secret
   volumeMounts:
   - name: git
     mountPath: "/git"
-  - name: git-secret
-    mountPath: "/git-secret"
 {{- end }}
 
 {{/* Final done container */}}
