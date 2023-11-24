@@ -18,8 +18,8 @@
   - >-
     if ! oc get secrets -n openshift-gitops vp-private-repo-credentials -o go-template='{{ `{{index .data.sshPrivateKey | base64decode}}` }}' &>/dev/null; then
         echo "USER/PASS";
-        U="$(oc get secret -n openshift-gitops vp-private-repo-credentials -o go-template='{{ `{{index .data.username | base64decode }}` }}';
-        P="$(oc get secret -n openshift-gitops vp-private-repo-credentials -o go-template='{{ `{{index .data.password | base64decode }}` }}';
+        U="$(oc get secret -n openshift-gitops vp-private-repo-credentials -o go-template='{{ `{{index .data.username | base64decode }}` }}')";
+        P="$(oc get secret -n openshift-gitops vp-private-repo-credentials -o go-template='{{ `{{index .data.password | base64decode }}` }}')";
         URL=$(echo {{ $.Values.global.repoURL }} | sed -E "s/(https?:\/\/)/\1${U}:${P}@/");
     else
         echo "SSH";
