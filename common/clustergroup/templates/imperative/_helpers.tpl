@@ -22,7 +22,6 @@
     else
         echo "SSH";
     fi;
-    sleep 1800;
     mkdir /git/{repo,home};
     git clone --single-branch --branch {{ $.Values.global.targetRevision }} --depth 1 -- "${URL}" /git/repo
     chmod 0770 /git/{repo,home}
