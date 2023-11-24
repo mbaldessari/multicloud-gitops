@@ -16,13 +16,24 @@
   - 'sh'
   - '-c'
   - >-
-    if ! oc get secrets -n openshift-gitops vp-private-repo-credentials -o go-template='{{ `{{index .data.sshPrivateKey | base64decode}}` }}' &>/dev/null; then
+    # There is no private repo
+    if ! oc get secrets -n openshift-gitops vp-private-repo-credentials &> /dev/null; then
+      URL="{{ $.Values.global.repoURL }}"
+    else
+      if ! oc get secrets -n openshift-gitops vp-private-repo-credentials -o go-template='{{ `{{index .data.sshPrivateKey | base64decode}}` }}' &>/dev/null; then
         U="$(oc get secret -n openshift-gitops vp-private-repo-credentials -o go-template='{{ `{{index .data.username | base64decode }}` }}')";
         P="$(oc get secret -n openshift-gitops vp-private-repo-credentials -o go-template='{{ `{{index .data.password | base64decode }}` }}')";
         URL=$(echo {{ $.Values.global.repoURL }} | sed -E "s/(https?:\/\/)/\1${U}:${P}@/");
-        echo "USER/PASS: ${U} - ${P} - ${URL}";
-    else
-        echo "SSH";
+        echo "USER/PASS: ${URL}";
+      else
+        S="$(oc get secret -n openshift-gitops vp-private-repo-credentials -o go-template='{{ `{{index .data.sshPrivateKey | base64decode }}` }}')"
+        mkdir -p --mode 0700 "${HOME}/.ssh"
+        echo "${S}" > "${HOME}/.ssh/id_rsa"
+        chmod 0600 "${HOME}/.ssh/id_rsa"
+        # TODO: we need to make sure docs are consistent if/when a user wants to use ssh to clone a repo
+        URL=$(echo {{ $.Values.global.repoURL }} | sed -E "s/(https?:\/\/)/\1git@/");
+        echo "SSH: ${URL}";
+      fi;
     fi;
     mkdir /git/{repo,home};
     git clone --single-branch --branch {{ $.Values.global.targetRevision }} --depth 1 -- "${URL}" /git/repo;
