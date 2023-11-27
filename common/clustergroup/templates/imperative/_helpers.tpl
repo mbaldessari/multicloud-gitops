@@ -16,7 +16,6 @@
   - 'sh'
   - '-c'
   - >-
-    # There is no private repo
     if ! oc get secrets -n openshift-gitops vp-private-repo-credentials &> /dev/null; then
       URL="{{ $.Values.global.repoURL }}";
     else
