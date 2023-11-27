@@ -29,8 +29,8 @@
         mkdir -p --mode 0700 "${HOME}/.ssh";
         echo "${S}" > "${HOME}/.ssh/id_rsa";
         chmod 0600 "${HOME}/.ssh/id_rsa";
-        # TODO: we need to make sure docs are consistent if/when a user wants to use ssh to clone a repo
         URL=$(echo {{ $.Values.global.repoURL }} | sed -E "s/(https?:\/\/)/\1git@/");
+        git config --global core.sshCommand "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no";
         echo "SSH: ${URL}";
       fi;
     fi;
