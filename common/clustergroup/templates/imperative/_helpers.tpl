@@ -26,10 +26,10 @@
         URL=$(echo {{ $.Values.global.repoURL }} | sed -E "s/(https?:\/\/)/\1${U}:${P}@/");
         echo "USER/PASS: ${URL}";
       else
-        S="$(oc get secret -n openshift-gitops vp-private-repo-credentials -o go-template='{{ `{{index .data.sshPrivateKey | base64decode }}` }}')"
-        mkdir -p --mode 0700 "${HOME}/.ssh"
-        echo "${S}" > "${HOME}/.ssh/id_rsa"
-        chmod 0600 "${HOME}/.ssh/id_rsa"
+        S="$(oc get secret -n openshift-gitops vp-private-repo-credentials -o go-template='{{ `{{index .data.sshPrivateKey | base64decode }}` }}')";
+        mkdir -p --mode 0700 "${HOME}/.ssh";
+        echo "${S}" > "${HOME}/.ssh/id_rsa";
+        chmod 0600 "${HOME}/.ssh/id_rsa";
         # TODO: we need to make sure docs are consistent if/when a user wants to use ssh to clone a repo
         URL=$(echo {{ $.Values.global.repoURL }} | sed -E "s/(https?:\/\/)/\1git@/");
         echo "SSH: ${URL}";
