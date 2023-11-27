@@ -30,7 +30,7 @@
         echo "${S}" > "${HOME}/.ssh/id_rsa";
         chmod 0600 "${HOME}/.ssh/id_rsa";
         URL=$(echo {{ $.Values.global.repoURL }} | sed -E "s/(https?:\/\/)/\1git@/");
-        git config --global core.sshCommand "ssh -vvv -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no";
+        git config --global core.sshCommand "ssh -vvv -i "${HOME}/.ssh/id_rsa" -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no";
         echo "SSH: ${URL}";
       fi;
     fi;
