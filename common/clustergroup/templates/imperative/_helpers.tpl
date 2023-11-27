@@ -18,7 +18,7 @@
   - >-
     # There is no private repo
     if ! oc get secrets -n openshift-gitops vp-private-repo-credentials &> /dev/null; then
-      URL="{{ $.Values.global.repoURL }}"
+      URL="{{ $.Values.global.repoURL }}";
     else
       if ! oc get secrets -n openshift-gitops vp-private-repo-credentials -o go-template='{{ `{{index .data.sshPrivateKey | base64decode}}` }}' &>/dev/null; then
         U="$(oc get secret -n openshift-gitops vp-private-repo-credentials -o go-template='{{ `{{index .data.username | base64decode }}` }}')";
