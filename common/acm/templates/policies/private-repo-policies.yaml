@@ -47,7 +47,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 placementRef:
-  name: private-repo-hub-placement
+  name: private-hub-placement
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
