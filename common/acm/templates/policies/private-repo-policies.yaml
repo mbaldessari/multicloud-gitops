@@ -49,7 +49,6 @@ placementRef:
   apiGroup: apps.open-cluster-management.io
 subjects:
   - name: private-{{ .name }}-policy
-    namespace: openshift-gitops
     kind: Policy
     apiGroup: policy.open-cluster-management.io
 ---
