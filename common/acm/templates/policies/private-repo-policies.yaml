@@ -40,6 +40,7 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
   name: private-{{ .name }}-placement-binding
+  namespace: openshift-gitops
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 placementRef:
@@ -56,6 +57,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: private-{{ .name }}-placement
+  namespace: openshift-gitops
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
