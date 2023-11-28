@@ -118,7 +118,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 placementRef:
-  name: private-repo-{{ .name }}-placement
+  name: private-{{ .name }}-placement
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
