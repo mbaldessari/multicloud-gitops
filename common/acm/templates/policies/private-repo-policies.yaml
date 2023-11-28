@@ -17,7 +17,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: {{ .name }}-clustergroup-config
+          name: private-repo-{{ .name }}-clustergroup-config
         spec:
           remediationAction: enforce
           severity: medium
@@ -42,7 +42,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 placementRef:
-  name: {{ .name }}-placement
+  name: private-repo-{{ .name }}-placement
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
@@ -50,5 +50,21 @@ subjects:
     kind: Policy
     apiGroup: policy.open-cluster-management.io
 ---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: private-repo-{{ .name }}-placement
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  clusterConditions:
+    - status: 'True'
+      type: ManagedClusterConditionAvailable
+  clusterSelector:
+    matchExpressions:
+      - key: local-cluster
+        operator: NotIn
+        values:
+          - 'true'
 {{- end }}
 {{- end }}
