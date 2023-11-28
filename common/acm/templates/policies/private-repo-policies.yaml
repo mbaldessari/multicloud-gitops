@@ -2,7 +2,9 @@
 # to the "open-cluster-management" via the "private-hub-policy"
 #
 # Then we copy the secret from the "open-cluster-management" namespace to the
-# managed clusters
+# managed clusters "openshift-gitops" instance
+#
+# And we also copy the same secret to the namespaced argo's namespace
 {{ if .Values.clusterGroup.isHubCluster }}
 ---
 apiVersion: policy.open-cluster-management.io/v1
@@ -107,6 +109,17 @@ spec:
                 metadata:
                   name: vp-private-repo-credentials
                   namespace: openshift-gitops
+                  labels:
+                    argocd.argoproj.io/secret-type: repository
+                data: '{{ `{{hub copySecretData "open-cluster-management" "vp-private-repo-credentials" hub}}` }}'
+            - complianceType: mustonlyhave
+              objectDefinition:
+                kind: Secret
+                apiVersion: v1
+                type: Opaque
+                metadata:
+                  name: vp-private-repo-credentials
+                  namespace: {{ $.Values.global.pattern }}-{{ .name }}
                   labels:
                     argocd.argoproj.io/secret-type: repository
                 data: '{{ `{{hub copySecretData "open-cluster-management" "vp-private-repo-credentials" hub}}` }}'
