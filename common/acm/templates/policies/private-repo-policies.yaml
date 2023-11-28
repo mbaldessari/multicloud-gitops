@@ -65,6 +65,12 @@ spec:
   clusterConditions:
     - status: 'True'
       type: ManagedClusterConditionAvailable
+  clusterSelector:
+    matchExpressions:
+      - key: local-cluster
+        operator: In
+        values:
+          - 'true'
 {{ end }}
 {{- range .Values.clusterGroup.managedClusterGroups }}
 {{- $group := . }}
