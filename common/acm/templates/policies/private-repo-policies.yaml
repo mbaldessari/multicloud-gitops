@@ -5,6 +5,7 @@
 # managed clusters "openshift-gitops" instance
 #
 # And we also copy the same secret to the namespaced argo's namespace
+{{ if $.Values.global.privateRepo }}
 {{ if .Values.clusterGroup.isHubCluster }}
 ---
 apiVersion: policy.open-cluster-management.io/v1
@@ -74,7 +75,7 @@ spec:
         values:
           - 'true'
 ---
-{{ end }}
+{{ end }}{{- /* if .Values.clusterGroup.isHubCluster */}}
 {{- range .Values.clusterGroup.managedClusterGroups }}
 {{- $group := . }}
 {{- if not .hostedArgoSites }}
@@ -155,5 +156,6 @@ spec:
         operator: NotIn
         values:
           - 'true'
-{{- end }}
-{{- end }}
+{{- end }}{{- /* if not .hostedArgoSites */}}
+{{- end }}{{- /* range .Values.clusterGroup.managedClusterGroups */}}
+{{- end }}{{- /* if $.Values.global.privateRepo */}}
