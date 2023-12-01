@@ -22,6 +22,7 @@ clusterGroup:
 
   sharedValueFiles:
     - '/overrides/values-{{ $.Values.global.clusterPlatform }}.yaml'
+    - '/overrides/values-acm-{{ $.Values.global.localClusterName }}.yaml'
 
   applications:
     golang-external-secrets:
