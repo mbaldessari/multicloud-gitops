@@ -20,6 +20,9 @@ clusterGroup:
     - config-demo
     - hello-world
 
+  sharedValueFiles:
+    - '/overrides/values-{{ $.Values.global.clusterPlatform }}.yaml'
+
   applications:
     golang-external-secrets:
       name: golang-external-secrets
