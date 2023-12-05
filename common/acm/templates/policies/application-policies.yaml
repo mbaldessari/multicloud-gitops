@@ -1,5 +1,13 @@
 # TODO: Also create a GitOpsCluster.apps.open-cluster-management.io
 {{- range .Values.clusterGroup.managedClusterGroups }}
+# This is needed to be able to get to the sharedValueFiles entry for regional clusters
+{{- $myGroupVars := printf "values-%s.yaml" .name | .Files.get }}
+bar: {{ .name }}
+foo: {{ $myGroupVars }}
+{{- $myGroupYaml := $myGroupVars | fromYaml }}
+{{- if and $myGroupYaml $myGroupYaml.clusterGroup $myGroupYaml.clusterGroup.sharedValueFiles }}
+{{- $myGroupSharedValueFiles := $myGroupYaml.clusterGroup.sharedValueFiles }}
+{{- end }}
 {{- $group := . }}
 {{- if not .hostedArgoSites }}
 apiVersion: policy.open-cluster-management.io/v1
@@ -45,7 +53,7 @@ spec:
                       valueFiles:
                       {{- include "acm.app.policies.valuefiles" . | nindent 24 }}
                       {{- range $valueFile := $group.sharedValueFiles }}
-                      - {{ tpl $valueFile $ | quote }}
+                      - {{ tpl $valueFile $myGroupYaml | quote }}
                       {{- end }}
                       {{- range $valueFile := $.Values.global.extraValueFiles }}
                       - {{ $valueFile | quote }}
