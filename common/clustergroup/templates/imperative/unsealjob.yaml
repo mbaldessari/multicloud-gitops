@@ -1,5 +1,5 @@
 {{- if not (eq .Values.enabled "plumbing") }}
-{{- if and $.Values.clusterGroup.isHubCluster $.Values.clusterGroup.applications.inexistent }}
+{{- if and $.Values.clusterGroup.isHubCluster $.Values.clusterGroup.applications.vault }}
 ---
 apiVersion: batch/v1
 kind: CronJob
