@@ -44,7 +44,7 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 placementRef:
   name: acm-hub-ca-policy-placement
-  kind: PlacementRule
+  kind: Placement
   apiGroup: apps.open-cluster-management.io
 subjects:
   - name: acm-hub-ca-policy
@@ -52,20 +52,21 @@ subjects:
     apiGroup: policy.open-cluster-management.io
 ---
 apiVersion: apps.open-cluster-management.io/v1
-kind: PlacementRule
+kind: Placement
 metadata:
   name: acm-hub-ca-policy-placement
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
-  clusterConditions:
-    - status: 'True'
-      type: ManagedClusterConditionAvailable
-  clusterSelector:
-    matchExpressions:
-      - key: local-cluster
-        operator: NotIn
-        values:
-          - 'true'
+  predicates:
+  - requiredClusterSelector:
+      labelSelector:
+        matchExpressions:
+          - {key: name, operator: NotIn, values: ["local-cluster"]}
+  tolerations:
+  - key: cluster.open-cluster-management.io/unreachable
+    operator: DoesNotExists
+  - key: cluster.open-cluster-management.io/unavailable
+    operator: DoesNotExist
 {{ end }}
 

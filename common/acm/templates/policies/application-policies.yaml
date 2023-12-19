@@ -113,7 +113,7 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 placementRef:
   name: {{ .name }}-placement
-  kind: PlacementRule
+  kind: Placement
   apiGroup: apps.open-cluster-management.io
 subjects:
   - name: {{ .name }}-clustergroup-policy
@@ -121,15 +121,21 @@ subjects:
     apiGroup: policy.open-cluster-management.io
 ---
 apiVersion: apps.open-cluster-management.io/v1
-kind: PlacementRule
+kind: Placement
 metadata:
   name: {{ .name }}-placement
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
-  clusterConditions:
-    - status: 'True'
-      type: ManagedClusterConditionAvailable
+  predicates:
+  - requiredClusterSelector:
+  tolerations:
+  - key: cluster.open-cluster-management.io/unreachable
+    operator: DoesNotExists
+  - key: cluster.open-cluster-management.io/unavailable
+    operator: DoesNotExist
+
+
   {{- if .clusterSelector }}
   clusterSelector: {{ .clusterSelector | toPrettyJson }}
   {{- else if (not $group.acmlabels) }}
@@ -150,3 +156,6 @@ spec:
 ---
 {{- end }}
 {{- end }}
+  clusterConditions:
+    - status: 'True'
+      type: ManagedClusterConditionAvailable
