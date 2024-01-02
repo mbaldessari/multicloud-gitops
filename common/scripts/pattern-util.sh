@@ -25,15 +25,18 @@ fi
 # $HOME is mounted as itself for any files that are referenced with absolute paths
 # $HOME is mounted to /root because the UID in the container is 0 and that's where SSH looks for credentials
 
+MYUID=$(id -u)
+MYGID=$(id -g)
 # Do not quote the ${KUBECONF_ENV} below, otherwise we will pass '' to podman
 # which will be confused
 podman run -it --rm --pull=newer \
 	--security-opt label=disable \
+	--user "${MYUID}:${MYGID}" \
+	--userns "keep-id:uid=${MYUID},gid=${MYGID}" \
 	-e EXTRA_HELM_OPTS \
 	-e KUBECONFIG \
 	-v "${HOME}":"${HOME}" \
 	-v "${HOME}":/pattern-home \
-	-v "${HOME}":/root \
 	-w "$(pwd)" \
 	"$PATTERN_UTILITY_CONTAINER" \
 	$@
