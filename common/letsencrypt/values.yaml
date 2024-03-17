@@ -24,7 +24,7 @@ letsencrypt:
   # These two lines need tweaking for every deployment. @example.com emails
   # will be rejected by letsencrypt
   ## @param letsencrypt.region String that defines the region used by the route53/dns01 resolver in cert-manager (required)
-  region: eu-central-1
+  #region: eu-central-1
   ## @param letsencrypt.email String containing the email used when requesting certificates to letsencrypt (required)
   email: test@example.com
 

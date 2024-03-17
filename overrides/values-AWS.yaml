@@ -16,7 +16,7 @@ letsencrypt:
   # fixme: set this to your correct email
   email: michele+letsencrypt@acksyn.org
 
-clustergroup:
+clusterGroup:
   applications:
     letsencrypt:
       name: letsencrypt
