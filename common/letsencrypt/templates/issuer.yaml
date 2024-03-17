@@ -15,7 +15,9 @@ spec:
     - selector: {}
       dns01:
         route53:
+          {{ if .Values.letsencrypt.region }}
           region: {{ .Values.letsencrypt.region }}
+          {{- end }}
           accessKeyIDSecretRef:
             name: cert-manager-dns-credentials
             key: aws_access_key_id
