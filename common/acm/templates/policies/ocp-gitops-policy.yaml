@@ -53,7 +53,7 @@ spec:
                     env:
                       - name: ARGOCD_CLUSTER_CONFIG_NAMESPACES
                         value: "*"
-{{- if and (hasKey .Values.global "vpOperatorExperimental") (eq .Values.global.vpOperatorExperimental true) }}
+{{- if .Values.global.vpOperatorExperimental }}
             - complianceType: mustonlyhave
               objectDefinition:
                 apiVersion: argoproj.io/v1beta1
