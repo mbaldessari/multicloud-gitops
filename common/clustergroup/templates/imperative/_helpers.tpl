@@ -6,7 +6,7 @@
 
 {{/* fetch-ca InitContainer */}}
 {{- define "imperative.initcontainers.fetch-ca" }}
-{{- if eq .Values.global.vpOperatorExperimental true }}
+{{- if and (hasKey .Values.global "vpOperatorExperimental") (eq .Values.global.vpOperatorExperimental true) }}
 - name: fetch-ca
   image: {{ $.Values.clusterGroup.imperative.image }}
   imagePullPolicy: {{ $.Values.clusterGroup.imperative.imagePullPolicy }}
@@ -40,7 +40,7 @@
   volumeMounts:
   - name: git
     mountPath: "/git"
-{{- if eq .Values.global.vpOperatorExperimental true }}
+{{- if and (hasKey .Values.global "vpOperatorExperimental") (eq .Values.global.vpOperatorExperimental true) }}
   - name: ca-bundles
     mountPath: /etc/pki/tls/certs
 {{- end }}
@@ -91,7 +91,7 @@
 - name: values-volume
   mountPath: /values/values.yaml
   subPath: values.yaml
-{{- if eq .Values.global.vpOperatorExperimental true }}
+{{- if and (hasKey .Values.global "vpOperatorExperimental") (eq .Values.global.vpOperatorExperimental true) }}
 - mountPath: /var/run/kube-root-ca
   name: kube-root-ca
 - mountPath: /var/run/trusted-ca
@@ -108,7 +108,7 @@
 - name: values-volume
   configMap:
     name: {{ $.Values.clusterGroup.imperative.valuesConfigMap }}-{{ $.Values.clusterGroup.name }}
-{{- if eq .Values.global.vpOperatorExperimental true }}
+{{- if and (hasKey .Values.global "vpOperatorExperimental") (eq .Values.global.vpOperatorExperimental true) }}
 - configMap:
     name: kube-root-ca.crt
   name: kube-root-ca

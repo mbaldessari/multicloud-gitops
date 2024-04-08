@@ -68,7 +68,7 @@ spec:
   rbac:
     defaultPolicy: role:admin
   repo:
-  {{- if eq .Values.global.vpOperatorExperimental true }}
+{{- if and (hasKey .Values.global "vpOperatorExperimental") (eq .Values.global.vpOperatorExperimental true) }}
     initContainers:
     - command:
       - bash
