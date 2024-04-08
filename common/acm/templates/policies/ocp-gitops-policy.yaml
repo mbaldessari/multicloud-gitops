@@ -53,6 +53,7 @@ spec:
                     env:
                       - name: ARGOCD_CLUSTER_CONFIG_NAMESPACES
                         value: "*"
+{{- if eq .Values.global.vpOperatorExperimental true }}
             - complianceType: mustonlyhave
               objectDefinition:
                 apiVersion: argoproj.io/v1beta1
@@ -208,6 +209,7 @@ spec:
                     provider: dex
                   tls:
                     ca: {}
+{{- end }}{{/* if eq .Values.global.vpOperatorExperimental */}}
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding

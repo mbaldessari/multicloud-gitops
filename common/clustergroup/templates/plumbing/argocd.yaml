@@ -68,6 +68,7 @@ spec:
   rbac:
     defaultPolicy: role:admin
   repo:
+  {{- if eq .Values.global.vpOperatorExperimental true }}
     initContainers:
     - command:
       - bash
@@ -106,6 +107,11 @@ spec:
 {{- if len $.Values.clusterGroup.argoCD.initContainers }}
 {{ $.Values.clusterGroup.argoCD.initContainers | toPrettyJson }}
 {{- end }}
+{{- else }}
+{{- if len $.Values.clusterGroup.argoCD.initContainers }}
+    initContainers: {{ $.Values.clusterGroup.argoCD.initContainers | toPrettyJson }}
+{{- end }}
+{{- end }}{{/* if eq .Values.global.vpOperatorExperimental true */}}
 {{- if len $.Values.clusterGroup.argoCD.configManagementPlugins }}
     sidecarContainers:
 {{- range $cmp := $.Values.clusterGroup.argoCD.configManagementPlugins }}
