@@ -1,3 +1,4 @@
+{{- $hasInitContainerCapability := and (.Values.global.experimentalCapabilities) (has "initcontainers" (splitList "," .Values.global.experimentalCapabilities)) }}
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
@@ -53,7 +54,7 @@ spec:
                     env:
                       - name: ARGOCD_CLUSTER_CONFIG_NAMESPACES
                         value: "*"
-{{- if .Values.global.vpOperatorExperimental }}
+{{- if $hasInitContainerCapability }}
             - complianceType: mustonlyhave
               objectDefinition:
                 apiVersion: argoproj.io/v1beta1
@@ -209,7 +210,7 @@ spec:
                     provider: dex
                   tls:
                     ca: {}
-{{- end }}{{/* if eq .Values.global.vpOperatorExperimental */}}
+{{- end }}{{/* if hasInitContainerCapability */}}
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding

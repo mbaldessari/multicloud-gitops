@@ -22,10 +22,8 @@ Default always defined top-level variables for helm charts
   value: {{ coalesce $.Values.global.localClusterDomain $.Values.global.hubClusterDomain }}
 - name: global.privateRepo
   value: {{ $.Values.global.privateRepo | quote }}
-- name: global.bandini
-  value: "bandinitest"
-- name: global.vpOperatorExperimental
-  value: "{{ $.Values.global.vpOperatorExperimental }}"
+- name: global.experimentalCapabilities
+  value: "{{ $.Values.global.experimentalCapabilities }}"
   forceString: true
 {{- end }} {{/* clustergroup.globalvaluesparameters */}}
 
