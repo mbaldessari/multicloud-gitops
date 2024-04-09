@@ -23,7 +23,7 @@ Default always defined top-level variables for helm charts
 - name: global.privateRepo
   value: {{ $.Values.global.privateRepo | quote }}
 - name: global.experimentalCapabilities
-  value: "{{ $.Values.global.experimentalCapabilities }}"
+  value: {{ $.Values.global.experimentalCapabilities | quote }}
 {{- end }} {{/* clustergroup.globalvaluesparameters */}}
 
 
