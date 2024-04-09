@@ -6,7 +6,6 @@
 
 {{/* fetch-ca InitContainer */}}
 {{- define "imperative.initcontainers.fetch-ca" }}
-{{- if .Values.global.vpOperatorExperimental }}
 - name: fetch-ca
   image: {{ $.Values.clusterGroup.imperative.image }}
   imagePullPolicy: {{ $.Values.clusterGroup.imperative.imagePullPolicy }}
@@ -26,7 +25,6 @@
     name: trusted-ca-bundle
   - mountPath: /tmp/ca-bundles
     name: ca-bundles
-{{- end }}
 {{- end }}
 
 {{/* git-init InitContainer */}}
@@ -85,13 +83,12 @@
 {{- end }}
 
 {{/* volume-mounts for all containers */}}
-{{- define "imperative.volumemounts" }}
+{{- define "imperative.volumemounts_ca" }}
 - name: git
   mountPath: "/git"
 - name: values-volume
   mountPath: /values/values.yaml
   subPath: values.yaml
-{{- if .Values.global.vpOperatorExperimental }}
 - mountPath: /var/run/kube-root-ca
   name: kube-root-ca
 - mountPath: /var/run/trusted-ca
@@ -99,6 +96,12 @@
 - mountPath: /tmp/ca-bundles
   name: ca-bundles
 {{- end }}
+{{- define "imperative.volumemounts" }}
+- name: git
+  mountPath: "/git"
+- name: values-volume
+  mountPath: /values/values.yaml
+  subPath: values.yaml
 {{- end }}
 
 {{/* volumes for all containers */}}
@@ -108,7 +111,14 @@
 - name: values-volume
   configMap:
     name: {{ $.Values.clusterGroup.imperative.valuesConfigMap }}-{{ $.Values.clusterGroup.name }}
-{{- if .Values.global.vpOperatorExperimental }}
+{{- end }}
+
+{{- define "imperative.volumes_ca" }}
+- name: git
+  emptyDir: {}
+- name: values-volume
+  configMap:
+    name: {{ $.Values.clusterGroup.imperative.valuesConfigMap }}-{{ $.Values.clusterGroup.name }}
 - configMap:
     name: kube-root-ca.crt
   name: kube-root-ca
@@ -118,5 +128,4 @@
   name: trusted-ca-bundle
 - name: ca-bundles
   emptyDir: {}
-{{- end }}
 {{- end }}
