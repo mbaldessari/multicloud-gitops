@@ -24,7 +24,6 @@ Default always defined top-level variables for helm charts
   value: {{ $.Values.global.privateRepo | quote }}
 - name: global.experimentalCapabilities
   value: "{{ $.Values.global.experimentalCapabilities }}"
-  forceString: true
 {{- end }} {{/* clustergroup.globalvaluesparameters */}}
 
 
