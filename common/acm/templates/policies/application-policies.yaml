@@ -75,6 +75,8 @@ spec:
                         value: {{ $.Values.global.clusterPlatform }}
                       - name: clusterGroup.name
                         value: {{ $group.name }}
+                      - name: global.vpOperatorExperimental
+                        value: {{ $.Values.global.vpOperatorExperimental }}
                      {{- range .helmOverrides }}
                       - name: {{ .name }}
                         value: {{ .value | quote }}
