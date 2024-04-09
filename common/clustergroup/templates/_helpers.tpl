@@ -26,6 +26,7 @@ Default always defined top-level variables for helm charts
   value: "bandinitest"
 - name: global.vpOperatorExperimental
   value: "{{ $.Values.global.vpOperatorExperimental }}"
+  forceString: true
 {{- end }} {{/* clustergroup.globalvaluesparameters */}}
 
 
