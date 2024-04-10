@@ -53,9 +53,9 @@ spec:
                       {{- end }}
                       parameters:
                       - name: global.repoURL
-                        value: $ARGOCD_APP_SOURCE_REPO_URL
+                        value: {{ coalesce .repoURL $.Values.global.repoURL }}
                       - name: global.targetRevision
-                        value: $ARGOCD_APP_SOURCE_TARGET_REVISION
+                        value: {{ coalesce .targetRevision $.Values.global.targetRevision }}
                       - name: global.namespace
                         value: $ARGOCD_APP_NAMESPACE
                       - name: global.pattern
