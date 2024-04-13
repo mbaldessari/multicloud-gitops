@@ -1,6 +1,5 @@
 {{- $hasInitContainerCapability := and (.Values.global.experimentalCapabilities) (has "initcontainers" (splitList "," .Values.global.experimentalCapabilities)) }}
 
-{{- if not (eq .Values.enabled "plumbing") }}
 {{/* Define this if needed (jobs defined */}}
 {{- if (and $.Values.clusterGroup.imperative (gt (len $.Values.clusterGroup.imperative.jobs) 0)) -}}
 ---
@@ -76,5 +75,4 @@ spec:
           {{- include "imperative.volumes" . | indent 12 }}
 {{- end }}
           restartPolicy: Never
-{{- end }}
 {{- end }}

@@ -11,8 +11,6 @@ global:
     applicationRetryLimit: 20
 
 
-enabled: "all"
-
 # Note that sometimes changing helm values might require a hard refresh (https://github.com/helm/helm/issues/3486)
 clusterGroup:
   name: example

@@ -2,7 +2,6 @@
 {{- $hasInitContainerCapability := and (.Values.global.experimentalCapabilities) (has "initcontainers" (splitList "," .Values.global.experimentalCapabilities)) }}
 {{- range .Values.clusterGroup.managedClusterGroups }}
 {{- $group := . }}
-{{- if not .hostedArgoSites }}
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
@@ -151,5 +150,4 @@ spec:
     {{- end }}
   {{- end }}
 ---
-{{- end }}
 {{- end }}
