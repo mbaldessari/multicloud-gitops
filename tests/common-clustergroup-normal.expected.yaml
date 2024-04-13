@@ -192,15 +192,6 @@ data:
           value: "false"
         name: acm-provision-edge
         targetRevision: main
-      - helmOverrides:
-        - name: clusterGroup.isHubCluster
-          value: "false"
-        hostedArgoSites:
-        - domain: perth1.beekhof.net
-          name: perth
-        - domain: syd.beekhof.net
-          name: sydney
-        name: argo-edge
       name: example
       namespaces:
       - open-cluster-management:
@@ -246,7 +237,6 @@ data:
           csv: redhat-openshift-pipelines.v1.5.2
           name: openshift-pipelines-operator-rh
       targetCluster: in-cluster
-    enabled: all
     global:
       clusterDomain: region.example.com
       clusterPlatform: aws
@@ -276,6 +266,25 @@ data:
     secretStore:
       kind: ClusterSecretStore
       name: vault-backend
+---
+# Source: clustergroup/templates/imperative/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: trusted-ca-bundle
+  namespace: imperative
+  annotations:
+  labels:
+    config.openshift.io/inject-trusted-cabundle: 'true'
+---
+# Source: clustergroup/templates/plumbing/trusted-bundle-ca-configmap.yaml
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: trusted-ca-bundle
+  namespace: mypattern-example
+  labels:
+    config.openshift.io/inject-trusted-cabundle: 'true'
 ---
 # Source: clustergroup/templates/imperative/clusterrole.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -406,6 +415,9 @@ spec:
               env:
                 - name: HOME
                   value: /git/home
+              volumeMounts:
+              - name: git
+                mountPath: "/git"
               command:
               - 'sh'
               - '-c'
@@ -431,9 +443,6 @@ spec:
                 mkdir /git/{repo,home};
                 git clone --single-branch --branch main --depth 1 -- "${URL}" /git/repo;
                 chmod 0770 /git/{repo,home};
-              volumeMounts:
-              - name: git
-                mountPath: "/git"
             - name: test
               image: registry.redhat.io/ansible-automation-platform-24/ee-supported-rhel9:latest
               imagePullPolicy: Always
@@ -466,12 +475,12 @@ spec:
                 - 'echo'
                 - 'done'
                 - '\n'
-          volumes:
-          - name: git
-            emptyDir: {}
-          - name: values-volume
-            configMap:
-              name: helm-values-configmap-example
+          volumes:            
+            - name: git
+              emptyDir: {}
+            - name: values-volume
+              configMap:
+                name: helm-values-configmap-example
           restartPolicy: Never
 ---
 # Source: clustergroup/templates/imperative/unsealjob.yaml
@@ -501,6 +510,9 @@ spec:
               env:
                 - name: HOME
                   value: /git/home
+              volumeMounts:
+              - name: git
+                mountPath: "/git"
               command:
               - 'sh'
               - '-c'
@@ -526,9 +538,6 @@ spec:
                 mkdir /git/{repo,home};
                 git clone --single-branch --branch main --depth 1 -- "${URL}" /git/repo;
                 chmod 0770 /git/{repo,home};
-              volumeMounts:
-              - name: git
-                mountPath: "/git"
             - name: unseal-playbook
               image: registry.redhat.io/ansible-automation-platform-24/ee-supported-rhel9:latest
               imagePullPolicy: Always
@@ -563,37 +572,13 @@ spec:
                 - 'echo'
                 - 'done'
                 - '\n'
-          volumes:
-          - name: git
-            emptyDir: {}
-          - name: values-volume
-            configMap:
-              name: helm-values-configmap-example
+          volumes:            
+            - name: git
+              emptyDir: {}
+            - name: values-volume
+              configMap:
+                name: helm-values-configmap-example
           restartPolicy: Never
----
-# Source: clustergroup/templates/core/subscriptions.yaml
----
----
-# Source: clustergroup/templates/plumbing/hosted-sites.yaml
-apiVersion: argoproj.io/v1alpha1
-kind: AppProject
-metadata:
-  name: argo-edge
-  namespace: openshift-gitops
-spec:
-  description: "Cluster Group argo-edge"
-  destinations:
-  - namespace: '*'
-    server: '*'
-  clusterResourceWhitelist:
-  - group: '*'
-    kind: '*'
-  namespaceResourceWhitelist:
-  - group: '*'
-    kind: '*'
-  sourceRepos:
-  - '*'
-status: {}
 ---
 # Source: clustergroup/templates/plumbing/projects.yaml
 apiVersion: argoproj.io/v1alpha1
@@ -667,6 +652,8 @@ spec:
           value: apps.region.example.com
         - name: global.privateRepo
           value: 
+        - name: global.experimentalCapabilities
+          value: 
   ignoreDifferences: [
   {
     "group": "internal.open-cluster-management.io",
@@ -733,250 +720,12 @@ spec:
           value: apps.region.example.com
         - name: global.privateRepo
           value: 
+        - name: global.experimentalCapabilities
+          value: 
   syncPolicy:
     automated: {}
     retry:
       limit: 20
----
-# Source: clustergroup/templates/plumbing/hosted-sites.yaml
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: mypattern-argo-edge-perth
-  namespace: openshift-gitops
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io/foreground
-spec:
-  project: argo-edge
-  source:
-    repoURL: https://github.com/pattern-clone/mypattern
-    targetRevision: main
-    path: common/clustergroup
-    helm:
-      ignoreMissingValueFiles: true
-      valueFiles:
-      - "/values-global.yaml"
-      - "/values-argo-edge.yaml"
-      parameters:
-      - name: global.repoURL
-        value: $ARGOCD_APP_SOURCE_REPO_URL
-      - name: global.targetRevision
-        value: $ARGOCD_APP_SOURCE_TARGET_REVISION
-      - name: global.namespace
-        value: $ARGOCD_APP_NAMESPACE
-      - name: global.pattern
-        value: mypattern
-      - name: global.hubClusterDomain
-        value: apps.hub.example.com
-      - name: global.localClusterDomain
-        value: apps.perth1.beekhof.net
-      - name: global.clusterDomain
-        value: perth1.beekhof.net
-      - name: enabled
-        value: core
-      - name: clusterGroup.name
-        value: argo-edge
-      - name: clusterGroup.targetCluster
-        value: perth
-      - name: clusterGroup.hostedSite.secretsPath
-        value: secret/data/hub/cluster_perth
-      - name: clusterGroup.isHubCluster
-        value: "false"
-  destination:
-    name: perth
-    namespace: mypattern-argo-edge
-  syncPolicy:
-    automated:
-      selfHeal: true
-  ignoreDifferences:
-  - group: apps
-    kind: Deployment
-    jsonPointers:
-    - /spec/replicas
-  - group: route.openshift.io
-    kind: Route
-    jsonPointers:
-    - /status
----
-# Source: clustergroup/templates/plumbing/hosted-sites.yaml
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: mypattern-argo-edge-perth-plumbing
-  namespace: openshift-gitops
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io/foreground
-spec:
-  project: argo-edge
-  source:
-    repoURL: https://github.com/pattern-clone/mypattern
-    targetRevision: main
-    path: common/clustergroup
-    helm:
-      ignoreMissingValueFiles: true
-      valueFiles:
-      - "/values-global.yaml"
-      - "/values-argo-edge.yaml"
-      parameters:
-      - name: global.repoURL
-        value: $ARGOCD_APP_SOURCE_REPO_URL
-      - name: global.targetRevision
-        value: $ARGOCD_APP_SOURCE_TARGET_REVISION
-      - name: global.namespace
-        value: $ARGOCD_APP_NAMESPACE
-      - name: global.pattern
-        value: mypattern
-      - name: global.hubClusterDomain
-        value: apps.hub.example.com
-      - name: global.localClusterDomain
-        value: apps.perth1.beekhof.net
-      - name: global.clusterDomain
-        value: perth1.beekhof.net
-      - name: enabled
-        value: plumbing
-      - name: clusterGroup.name
-        value: argo-edge
-      - name: clusterGroup.targetCluster
-        value: perth
-      - name: clusterGroup.hostedSite.secretsPath
-        value: secret/data/hub/cluster_perth
-      - name: clusterGroup.isHubCluster
-        value: "false"
-  destination:
-    name: in-cluster
-    namespace: openshift-gitops
-  syncPolicy:
-    automated:
-      selfHeal: true
-  ignoreDifferences:
-  - group: apps
-    kind: Deployment
-    jsonPointers:
-    - /spec/replicas
-  - group: route.openshift.io
-    kind: Route
-    jsonPointers:
-    - /status
----
-# Source: clustergroup/templates/plumbing/hosted-sites.yaml
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: mypattern-argo-edge-sydney
-  namespace: openshift-gitops
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io/foreground
-spec:
-  project: argo-edge
-  source:
-    repoURL: https://github.com/pattern-clone/mypattern
-    targetRevision: main
-    path: common/clustergroup
-    helm:
-      ignoreMissingValueFiles: true
-      valueFiles:
-      - "/values-global.yaml"
-      - "/values-argo-edge.yaml"
-      parameters:
-      - name: global.repoURL
-        value: $ARGOCD_APP_SOURCE_REPO_URL
-      - name: global.targetRevision
-        value: $ARGOCD_APP_SOURCE_TARGET_REVISION
-      - name: global.namespace
-        value: $ARGOCD_APP_NAMESPACE
-      - name: global.pattern
-        value: mypattern
-      - name: global.hubClusterDomain
-        value: apps.hub.example.com
-      - name: global.localClusterDomain
-        value: apps.syd.beekhof.net
-      - name: global.clusterDomain
-        value: syd.beekhof.net
-      - name: enabled
-        value: core
-      - name: clusterGroup.name
-        value: argo-edge
-      - name: clusterGroup.targetCluster
-        value: sydney
-      - name: clusterGroup.hostedSite.secretsPath
-        value: secret/data/hub/cluster_sydney
-      - name: clusterGroup.isHubCluster
-        value: "false"
-  destination:
-    name: sydney
-    namespace: mypattern-argo-edge
-  syncPolicy:
-    automated:
-      selfHeal: true
-  ignoreDifferences:
-  - group: apps
-    kind: Deployment
-    jsonPointers:
-    - /spec/replicas
-  - group: route.openshift.io
-    kind: Route
-    jsonPointers:
-    - /status
----
-# Source: clustergroup/templates/plumbing/hosted-sites.yaml
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: mypattern-argo-edge-sydney-plumbing
-  namespace: openshift-gitops
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io/foreground
-spec:
-  project: argo-edge
-  source:
-    repoURL: https://github.com/pattern-clone/mypattern
-    targetRevision: main
-    path: common/clustergroup
-    helm:
-      ignoreMissingValueFiles: true
-      valueFiles:
-      - "/values-global.yaml"
-      - "/values-argo-edge.yaml"
-      parameters:
-      - name: global.repoURL
-        value: $ARGOCD_APP_SOURCE_REPO_URL
-      - name: global.targetRevision
-        value: $ARGOCD_APP_SOURCE_TARGET_REVISION
-      - name: global.namespace
-        value: $ARGOCD_APP_NAMESPACE
-      - name: global.pattern
-        value: mypattern
-      - name: global.hubClusterDomain
-        value: apps.hub.example.com
-      - name: global.localClusterDomain
-        value: apps.syd.beekhof.net
-      - name: global.clusterDomain
-        value: syd.beekhof.net
-      - name: enabled
-        value: plumbing
-      - name: clusterGroup.name
-        value: argo-edge
-      - name: clusterGroup.targetCluster
-        value: sydney
-      - name: clusterGroup.hostedSite.secretsPath
-        value: secret/data/hub/cluster_sydney
-      - name: clusterGroup.isHubCluster
-        value: "false"
-  destination:
-    name: in-cluster
-    namespace: openshift-gitops
-  syncPolicy:
-    automated:
-      selfHeal: true
-  ignoreDifferences:
-  - group: apps
-    kind: Deployment
-    jsonPointers:
-    - /spec/replicas
-  - group: route.openshift.io
-    kind: Route
-    jsonPointers:
-    - /status
 ---
 # Source: clustergroup/templates/plumbing/argocd.yaml
 apiVersion: argoproj.io/v1beta1
