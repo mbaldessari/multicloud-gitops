@@ -144,16 +144,3 @@ clusterGroup:
     acmlabels:
     - name: clusterGroup
       value: region
-  - name: argo-edge
-    hostedArgoSites:
-    - name: perth
-      domain: perth1.beekhof.net
-      # The default is secret/data/hub/cluster_<name>
-      #secretsPath: secret/data/hub/cluster_perth
-    - name: sydney
-      domain: syd.beekhof.net
-      # The default is secret/data/hub/cluster_<name>
-      #secretsPath: secret/data/hub/cluster_sydney
-    helmOverrides:
-    - name: clusterGroup.isHubCluster
-      value: "false"

@@ -6,14 +6,6 @@
       "type": "object",
       "additionalProperties": true,
       "properties": {
-        "enabled": {
-          "type": "string",
-          "enum": [
-            "all",
-            "core",
-            "plumbing"
-          ]
-        },
         "secretStore": {
           "$ref": "#/definitions/SecretStore"
         },
@@ -288,12 +280,6 @@
             "type": "string"
           }
         },
-        "hostedSite": {
-          "type": "object",
-          "items": {
-            "$ref": "#/definitions/HostedSite"
-          }
-        },
         "subscriptions": {
           "anyOf": [
             {
@@ -351,9 +337,6 @@
           "items": {
             "$ref": "#/definitions/ManagedClusterGroup"
           }
-        },
-        "externalClusters": {
-          "type": "array"
         }
       },
       "required": [
@@ -569,20 +552,6 @@
         }
       }
     },
-    "HostedSite": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "secretsPath": {
-          "type": "string",
-          "description": "It represents the path in the vault that is supposed to contain two fields: 'bearerToken' representing the token to use to authenticate to the remote cluster and 'caCert' which is the base64-encoded Certificate Authority cert of the remote cluster."
-        }
-      },
-      "required": [
-        "secretsPath"
-      ],
-      "title": "HostedSite"
-    },
     "Imperative": {
       "type": "object",
       "additionalProperties": false,
@@ -716,12 +685,6 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/ACMLabels"
-          }
-        },
-        "hostedArgoSites": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/HostedArgoSites"
           }
         },
         "clusterPools": {
@@ -895,29 +858,6 @@
         "value"
       ],
       "title": "SubscriptionsConfigEnv"
-    },
-    "HostedArgoSites": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "domain": {
-          "type": "string"
-        },
-        "bearerKeyPath": {
-          "type": "string"
-        },
-        "caKeyPath": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "name",
-        "domain"
-      ],
-      "title": "HostedArgoSites"
     }
   }
 }

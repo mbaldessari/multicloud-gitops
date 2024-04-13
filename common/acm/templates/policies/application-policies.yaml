@@ -1,7 +1,7 @@
 # TODO: Also create a GitOpsCluster.apps.open-cluster-management.io
+{{- $hasInitContainerCapability := and (.Values.global.experimentalCapabilities) (has "initcontainers" (splitList "," .Values.global.experimentalCapabilities)) }}
 {{- range .Values.clusterGroup.managedClusterGroups }}
 {{- $group := . }}
-{{- if not .hostedArgoSites }}
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
@@ -52,9 +52,9 @@ spec:
                       {{- end }}
                       parameters:
                       - name: global.repoURL
-                        value: $ARGOCD_APP_SOURCE_REPO_URL
+                        value: {{ $.Values.global.repoURL }}
                       - name: global.targetRevision
-                        value: $ARGOCD_APP_SOURCE_TARGET_REVISION
+                        value: {{ $.Values.global.targetRevision }}
                       - name: global.namespace
                         value: $ARGOCD_APP_NAMESPACE
                       - name: global.pattern
@@ -75,6 +75,8 @@ spec:
                         value: {{ $.Values.global.clusterPlatform }}
                       - name: clusterGroup.name
                         value: {{ $group.name }}
+                      - name: global.experimentalCapabilities
+                        value: {{ $.Values.global.experimentalCapabilities }}
                      {{- range .helmOverrides }}
                       - name: {{ .name }}
                         value: {{ .value | quote }}
@@ -148,5 +150,4 @@ spec:
     {{- end }}
   {{- end }}
 ---
-{{- end }}
 {{- end }}

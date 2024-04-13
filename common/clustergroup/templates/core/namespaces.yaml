@@ -1,4 +1,3 @@
-{{- if not (eq .Values.enabled "plumbing") }}
 {{- range $ns := .Values.clusterGroup.namespaces }}
 apiVersion: v1
 kind: Namespace
@@ -28,5 +27,4 @@ metadata:
   {{- end }} {{- /* if kindIs "string" $ns */}}
 spec:
 ---
-{{- end }}
 {{- end }}
