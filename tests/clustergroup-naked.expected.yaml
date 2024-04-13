@@ -67,7 +67,6 @@ data:
       sharedValueFiles: []
       subscriptions: {}
       targetCluster: in-cluster
-    enabled: all
     global:
       extraValueFiles: []
       options:

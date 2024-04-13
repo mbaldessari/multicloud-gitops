@@ -165,7 +165,6 @@ data:
         name: red-hat-camel-k
         namespace: manuela-stormshift-messaging
       targetCluster: in-cluster
-    enabled: all
     global:
       clusterDomain: region.example.com
       clusterPlatform: aws
@@ -445,9 +444,6 @@ spec:
               configMap:
                 name: helm-values-configmap-factory
           restartPolicy: Never
----
-# Source: clustergroup/templates/core/subscriptions.yaml
----
 ---
 # Source: clustergroup/templates/plumbing/projects.yaml
 apiVersion: argoproj.io/v1alpha1

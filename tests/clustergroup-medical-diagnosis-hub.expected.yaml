@@ -285,7 +285,6 @@ data:
           channel: stable
           name: serverless-operator
       targetCluster: in-cluster
-    enabled: all
     global:
       clusterDomain: region.example.com
       clusterPlatform: aws
@@ -630,9 +629,6 @@ spec:
               configMap:
                 name: helm-values-configmap-hub
           restartPolicy: Never
----
-# Source: clustergroup/templates/core/subscriptions.yaml
----
 ---
 # Source: clustergroup/templates/plumbing/projects.yaml
 apiVersion: argoproj.io/v1alpha1
