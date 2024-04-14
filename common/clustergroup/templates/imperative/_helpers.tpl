@@ -49,7 +49,6 @@
         U="$(oc get secret -n openshift-gitops vp-private-repo-credentials -o go-template='{{ `{{index .data.username | base64decode }}` }}')";
         P="$(oc get secret -n openshift-gitops vp-private-repo-credentials -o go-template='{{ `{{index .data.password | base64decode }}` }}')";
         URL=$(echo {{ $.Values.global.repoURL }} | sed -E "s/(https?:\/\/)/\1${U}:${P}@/");
-        echo "USER/PASS: ${URL}";
       else
         S="$(oc get secret -n openshift-gitops vp-private-repo-credentials -o go-template='{{ `{{index .data.sshPrivateKey | base64decode }}` }}')";
         mkdir -p --mode 0700 "${HOME}/.ssh";
@@ -57,9 +56,14 @@
         chmod 0600 "${HOME}/.ssh/id_rsa";
         URL=$(echo {{ $.Values.global.repoURL }} | sed -E "s/(https?:\/\/)/\1git@/");
         git config --global core.sshCommand "ssh -i "${HOME}/.ssh/id_rsa" -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no";
-        echo "SSH: ${URL}";
       fi;
     fi;
+    OUT="$(oc get proxy.config.openshift.io/cluster -o jsonpath='{.spec.httpProxy}' 2>/dev/null)";
+    if [ -n "${OUT}" ]; then export HTTP_PROXY="${OUT}"; fi;
+    OUT="$(oc get proxy.config.openshift.io/cluster -o jsonpath='{.spec.httpsProxy}' 2>/dev/null)";
+    if [ -n "${OUT}" ]; then export HTTPS_PROXY="${OUT}"; fi;
+    OUT="$(oc get proxy.config.openshift.io/cluster -o jsonpath='{.spec.noProxy}' 2>/dev/null)";
+    if [ -n "${OUT}" ]; then export NO_PROXY="${OUT}"; fi;
     mkdir /git/{repo,home};
     git clone --single-branch --branch {{ $.Values.global.targetRevision }} --depth 1 -- "${URL}" /git/repo;
     chmod 0770 /git/{repo,home};
@@ -89,7 +93,6 @@
         U="$(oc get secret -n openshift-gitops vp-private-repo-credentials -o go-template='{{ `{{index .data.username | base64decode }}` }}')";
         P="$(oc get secret -n openshift-gitops vp-private-repo-credentials -o go-template='{{ `{{index .data.password | base64decode }}` }}')";
         URL=$(echo {{ $.Values.global.repoURL }} | sed -E "s/(https?:\/\/)/\1${U}:${P}@/");
-        echo "USER/PASS: ${URL}";
       else
         S="$(oc get secret -n openshift-gitops vp-private-repo-credentials -o go-template='{{ `{{index .data.sshPrivateKey | base64decode }}` }}')";
         mkdir -p --mode 0700 "${HOME}/.ssh";
@@ -97,9 +100,14 @@
         chmod 0600 "${HOME}/.ssh/id_rsa";
         URL=$(echo {{ $.Values.global.repoURL }} | sed -E "s/(https?:\/\/)/\1git@/");
         git config --global core.sshCommand "ssh -i "${HOME}/.ssh/id_rsa" -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no";
-        echo "SSH: ${URL}";
       fi;
     fi;
+    OUT="$(oc get proxy.config.openshift.io/cluster -o jsonpath='{.spec.httpProxy}' 2>/dev/null)";
+    if [ -n "${OUT}" ]; then export HTTP_PROXY="${OUT}"; fi;
+    OUT="$(oc get proxy.config.openshift.io/cluster -o jsonpath='{.spec.httpsProxy}' 2>/dev/null)";
+    if [ -n "${OUT}" ]; then export HTTPS_PROXY="${OUT}"; fi;
+    OUT="$(oc get proxy.config.openshift.io/cluster -o jsonpath='{.spec.noProxy}' 2>/dev/null)";
+    if [ -n "${OUT}" ]; then export NO_PROXY="${OUT}"; fi;
     mkdir /git/{repo,home};
     git clone --single-branch --branch {{ $.Values.global.targetRevision }} --depth 1 -- "${URL}" /git/repo;
     chmod 0770 /git/{repo,home};
