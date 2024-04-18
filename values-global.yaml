@@ -7,5 +7,6 @@ global:
     installPlanApproval: Automatic
 main:
   clusterGroupName: hub
+  experimentalCapabilities: foo
   multiSourceConfig:
     enabled: true
