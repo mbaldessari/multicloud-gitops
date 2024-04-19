@@ -51,6 +51,7 @@ clusterGroup:
     vault:
       name: vault
       namespace: vault
+      generators: foo
       project: hub
       path: common/hashicorp-vault
     golang-external-secrets:
