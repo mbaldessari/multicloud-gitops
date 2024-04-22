@@ -33,9 +33,9 @@
     right=$(grep "{{ image }}" "{{ iib_local_folder }}/mapping.txt" | cut -f2 -d=)
     right_base=$(echo $right | sed -e 's/:.*$//' -e 's/@.*$//')
     right_log=$(echo "${right_base}@${left_sha}" | sed -e 's/\//-/g')
-    if skopeo inspect --authfile "{{ pull_secrets_tempfolder.path }}/.dockerconfigjson" --no-tags docker://"{{ image }}" &> /tmp/skopeo-"{{ image | regex_replace('/', '-') }}".log; then
+    if skopeo inspect --authfile "{{ pull_secrets_tempfolder.path }}/.dockerconfigjson" --no-tags docker://"{{ image }}" > /tmp/skopeo-"{{ image | regex_replace('/', '-') }}".log; then
       echo "{{ image }}"
-    elif skopeo inspect --authfile "{{ pull_secrets_tempfolder.path }}/.dockerconfigjson" --no-tags docker://"${right_base}@${left_sha}" &> "/tmp/skopeo-${right_log}.log"; then
+    elif skopeo inspect --authfile "{{ pull_secrets_tempfolder.path }}/.dockerconfigjson" --no-tags docker://"${right_base}@${left_sha}" > "/tmp/skopeo-${right_log}.log"; then
       echo "${right_base}@${left_sha}"
     else
       echo "ERROR: both {{ image }} and echo ${right_base}@${left_sha} could not be found"
@@ -91,16 +91,6 @@
        'mirrordest_nosha': (mirror_dest + item | basename) | regex_replace('@.*$', ''),
        'mirrordest_tag': 'tag-' + item | basename | regex_replace('^.*@sha256:', '')}}, recursive=true) }}"
   loop: "{{ all_images }}"
-  when: use_internal_registry
-
-- name: Create dict with full image name+sha -> mirror destination (OCP < 4.13)
-  ansible.builtin.set_fact:
-    image_urls: "{{ image_urls | default({}) | combine({item:
-      {'mirrordest': mirror_dest + '@' + item | basename | regex_replace('^.*@', ''),
-       'mirrordest_nosha': mirror_dest,
-       'mirrordest_tag': 'tag-' + item | basename | regex_replace('^.*@sha256:', '')}}, recursive=true) }}"
-  loop: "{{ all_images }}"
-  when: not use_internal_registry
 
 - name: Create dict with full image name+sha -> image key without sha
   ansible.builtin.set_fact:
@@ -124,14 +114,6 @@
     src: ./templates/imageDigestMirror.yaml.j2
     dest: "{{ iib_local_folder }}/imageMirror.yaml"
     mode: "0644"
-  when: use_internal_registry
-
-- name: Template out imageMirror.yaml (OCP < 4.13)
-  ansible.builtin.template:
-    src: ./templates/imageContentSourcePolicy.yaml.j2
-    dest: "{{ iib_local_folder }}/imageMirror.yaml"
-    mode: "0644"
-  when: not use_internal_registry
 
 - name: Template out mirror.map
   ansible.builtin.template:
