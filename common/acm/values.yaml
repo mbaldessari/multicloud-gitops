@@ -30,6 +30,11 @@ clusterGroup:
 #      - name: clusterGroup
 #        value: region-one
 
+# Just used for IIB testing
+mce_operator:
+  source: redhat-operators
+  channel: null
+
 secretStore:
   name: vault-backend
   kind: ClusterSecretStore
