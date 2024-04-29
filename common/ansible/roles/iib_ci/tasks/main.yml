@@ -39,15 +39,15 @@
 # Creates a dict like:
 # "advanced-cluster-management": {
 #   "iib": "713808",
-#   "registry": "registry-proxy.engineering.redhat.com/rh-osbs/iib:713808"
+#   "iib_image": "registry-proxy.engineering.redhat.com/rh-osbs/iib:713808"
 # },
 # "multicluster-engine": {
 #   "iib": "713809",
-#   "registry": "registry-proxy.engineering.redhat.com/rh-osbs/iib:713809"
+#   "iib_image": "registry-proxy.engineering.redhat.com/rh-osbs/iib:713809"
 # }
 - name: Set IIB dict
   ansible.builtin.set_fact:
-    iib_dict: "{{ iib_dict | default({}) | combine({item.0: {'registry': item.1, 'iib': item.1.split(':')[-1]}}) }}"
+    iib_dict: "{{ iib_dict | default({}) | combine({item.0: {'iib_image': item.1, 'iib': item.1.split(':')[-1]}}) }}"
   with_together:
     - "{{ operator_list }}"
     - "{{ iib_image_list }}"
@@ -56,23 +56,16 @@
   ansible.builtin.debug:
     msg: "{{ iib_dict }}"
 
+- name: Set up internal registry (OCP >= 4.13)
+  ansible.builtin.include_tasks: setup-internal-registry.yml
+
 - name: stop
   ansible.builtin.fail:
     msg: "osti"
 
-- name: Set IIB fact
-  ansible.builtin.set_fact:
-    iib: "{{ iib_image.split(':')[1] }}"
-
-- name: Set IIB local folder fact
-  ansible.builtin.set_fact:
-    iib_local_folder: "/tmp/manifest-{{ iib }}"
-
-- name: Set up internal registry (OCP >= 4.13)
-  ansible.builtin.include_tasks: setup-internal-registry.yml
-
 - name: Install new IIB in cluster
   ansible.builtin.include_tasks: install-iib-in-cluster.yml
+  with_items: {{ iib_dict | dict2items }}
 
 - name: Mirror all related images
   ansible.builtin.include_tasks: mirror-related-images.yml
