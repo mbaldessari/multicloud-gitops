@@ -1,3 +1,8 @@
+# We redefine this var so it is easier to run this task independently
+- name: Set IIB local folder fact
+  ansible.builtin.set_fact:
+    iib_local_folder: "/tmp/manifest-{{ item.value['iib'] }}"
+
 - name: Set all images to empty list
   ansible.builtin.set_fact:
     all_images: []

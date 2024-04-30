@@ -2,7 +2,7 @@
 # the operator name is defined in the variable "item". This
 # set of tasks is to be included in a loop that goes over the
 # needed operators
-- name: Get default channel in the IIB for "{{ item }}"
+- name: Get default channel in the IIB for "{{ item.key }}"
   ansible.builtin.shell: |
     oc get -n "{{ internal_registry_ns }}" packagemanifests -l "catalog=iib-{{ item.value['iib'] }}" --field-selector "metadata.name={{ item.key }}" \
       -o jsonpath='{.items[0].status.defaultChannel}'
@@ -15,9 +15,13 @@
   ansible.builtin.set_fact:
     default_channel: "{{ default_channel_raw.stdout }}"
 
+- name: Print default channel
+  ansible.builtin.debug:
+    msg: "Default channel for {{ item.key }}: {{ default_channel }}"
+
 - name: Get all related images in the IIB for "{{ item.key }}"
   ansible.builtin.shell: |
-    oc get packagemanifests -l "catalog=iib-{{ iib }}" --field-selector "metadata.name={{ item.key }}" \
+    oc get packagemanifests -l "catalog=iib-{{ item.value['iib'] }}" --field-selector "metadata.name={{ item.key }}" \
       -o jsonpath="{.items[0].status.channels[?(@.name==\"{{ default_channel }}\")].currentCSVDesc.relatedImages}"
   register: related_images_raw
   retries: 5
