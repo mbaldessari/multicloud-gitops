@@ -59,16 +59,13 @@
 - name: Set up internal registry (OCP >= 4.13)
   ansible.builtin.include_tasks: setup-internal-registry.yml
 
-- name: stop
-  ansible.builtin.fail:
-    msg: "osti"
-
 - name: Install new IIB in cluster
   ansible.builtin.include_tasks: install-iib-in-cluster.yml
   with_items: "{{ iib_dict | dict2items }}"
 
 - name: Mirror all related images
   ansible.builtin.include_tasks: mirror-related-images.yml
+  with_items: "{{ iib_dict | dict2items }}"
 
 - name: Remove pullsecrets tempfolder
   ansible.builtin.file:
