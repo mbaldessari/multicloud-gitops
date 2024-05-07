@@ -61,6 +61,10 @@
   ansible.builtin.set_fact:
     validate_certs_api_endpoint: "{{ not letsencrypt.api_endpoint | default(True) | bool }}"
 
+- name: DEBUGME BANDINI1
+  ansible.builtin.debug:
+    msg: "{{ clusters_info }}"
+
 - name: Fetch remote ansible to remote cluster
   kubernetes.core.k8s_info:
     api_key: "{{ item.value['bearerToken'] }}"
