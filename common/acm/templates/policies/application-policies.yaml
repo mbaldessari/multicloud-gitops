@@ -90,6 +90,7 @@ spec:
                   syncPolicy:
                     automated:
                       prune: false
+                      selfHeal: true
                     retry:
                       limit: {{ default 20 $.Values.global.options.applicationRetryLimit }}
                   ignoreDifferences:
