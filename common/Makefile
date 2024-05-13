@@ -190,7 +190,6 @@ argo-healthcheck: ## Checks if all argo applications are synced
 	    exit 1;\
 	fi
 
-
 ##@ Test and Linters Tasks
 
 CHARTS=$(shell find . -type f -iname 'Chart.yaml' -exec dirname "{}"  \; | grep -v examples | sed -e 's/.\///')
@@ -209,6 +208,16 @@ TEST_OPTS= -f values-global.yaml \
 	--set "clusterGroup.imperative.jobs[0].playbook"="ansible/test.yml"
 PATTERN_OPTS=-f common/examples/values-example.yaml
 EXECUTABLES=git helm oc ansible
+
+.PHONY: upstream-test
+upstream-test: ## Run the upstream test suite
+	@if [ -z $$KUBECONFIG ]; then echo "KUBECONFIG is unset"; exit 1; fi; \
+	for i in `ls tests/interop/test_*.py`; do \
+		T=`basename $$i`; T="$${T%.py}"; echo "Running test: $$T"; \
+		pytest -lv --disable-warnings $$i\
+				--kubeconfig ${KUBECONFIG}\
+				--junit-xml ~/vp-upstream-$$T.xml;\
+	done
 
 .PHONY: test
 test: ## run helm tests
