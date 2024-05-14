@@ -209,17 +209,33 @@ TEST_OPTS= -f values-global.yaml \
 PATTERN_OPTS=-f common/examples/values-example.yaml
 EXECUTABLES=git helm oc ansible
 
-.PHONY: upstream-test
-upstream-test: ## Run the upstream test suite
+.PHONY: upstream-test-hub
+upstream-test-hub: ## Run the upstream test suite for hub
 	@if [ -z $$KUBECONFIG ]; then echo "KUBECONFIG is unset"; exit 1; fi; \
 	OPENSHIFT_FULL_VER=`oc get clusterversion/version -o jsonpath="{.status.history}" | jq -r '.[] | select(.state=="Completed").version'`; \
 	export OPENSHIFT_VER="$${OPENSHIFT_FULL_VER%.*}"; \
-	for i in `ls tests/interop/test_*.py`; do \
-		T=`basename $$i`; T="$${T%.py}"; echo "Running test: $$T"; \
+	if [ -z $$EDGE_CLUSTER_PREFIX ]; then export EDGE_CLUSTER_PREFIX=edge; fi; \
+	if [ -z $$MPTS_TEST_RUN_ID ]; then export MPTS_TEST_RUN_ID=one; fi; \
+	if [ -z $$INFRA_PROVIDER ]; then export INFRA_PROVIDER=none; fi; \
+	for i in `ls tests/interop/test_*hub*.py`; do \
+		T=`basename $$i`; T="$${T%.py}"; echo "Running test for hub: $$T"; \
 		export WORKSPACE=/tmp; \
 		pytest -lv --disable-warnings $$i\
 				--kubeconfig ${KUBECONFIG}\
-				--junit-xml ~/vp-upstream-$$T.xml;\
+				--junit-xml ~/vp-upstream-hub-$$T.xml;\
+	done
+
+.PHONY: upstream-test-edge
+upstream-test-edge: ## Run the upstream test suite for edge
+	@if [ -z $$KUBECONFIG ]; then echo "KUBECONFIG is unset"; exit 1; fi; \
+	OPENSHIFT_FULL_VER=`oc get clusterversion/version -o jsonpath="{.status.history}" | jq -r '.[] | select(.state=="Completed").version'`; \
+	export OPENSHIFT_VER="$${OPENSHIFT_FULL_VER%.*}"; \
+	for i in `ls tests/interop/test_*edge*.py`; do \
+		T=`basename $$i`; T="$${T%.py}"; echo "Running test for edge: $$T"; \
+		export WORKSPACE=/tmp; \
+		pytest -lv --disable-warnings $$i\
+				--kubeconfig ${KUBECONFIG}\
+				--junit-xml ~/vp-upstream-edge-$$T.xml;\
 	done
 
 .PHONY: test
