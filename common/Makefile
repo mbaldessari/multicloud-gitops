@@ -212,8 +212,11 @@ EXECUTABLES=git helm oc ansible
 .PHONY: upstream-test
 upstream-test: ## Run the upstream test suite
 	@if [ -z $$KUBECONFIG ]; then echo "KUBECONFIG is unset"; exit 1; fi; \
+	OPENSHIFT_FULL_VER=`oc get clusterversion/version -o jsonpath="{.status.history}" | jq -r '.[] | select(.state=="Completed").version'`; \
+	export OPENSHIFT_VER="$${OPENSHIFT_FULL_VER%.*}"; \
 	for i in `ls tests/interop/test_*.py`; do \
 		T=`basename $$i`; T="$${T%.py}"; echo "Running test: $$T"; \
+		export WORKSPACE=/tmp; \
 		pytest -lv --disable-warnings $$i\
 				--kubeconfig ${KUBECONFIG}\
 				--junit-xml ~/vp-upstream-$$T.xml;\
