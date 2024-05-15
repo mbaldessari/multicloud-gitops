@@ -63,6 +63,8 @@ spec:
                   name: openshift-gitops
                   namespace: openshift-gitops
                 spec:
+                  image: fw.int.rhx/bandini/argocd
+                  version: latest
                   applicationSet:
                     resources:
                       limits:
