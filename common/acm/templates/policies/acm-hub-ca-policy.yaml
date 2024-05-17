@@ -1,6 +1,6 @@
 # This pushes out the HUB's Certificate Authorities on to the imported clusters
 {{ if .Values.clusterGroup.isHubCluster }}
-{{- if ((.Values.global.secretStore).backend) "vault" }}
+{{- if (eq ((.Values.global.secretStore).backend) "vault") }}
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
