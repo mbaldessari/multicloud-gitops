@@ -29,7 +29,7 @@ global:
   hubClusterDomain: hub.example.com
   clusterDomain: foo.example.com
 
-  secretStore:
+  secretstore:
     backend: "vault"
 
 clusterGroup:
