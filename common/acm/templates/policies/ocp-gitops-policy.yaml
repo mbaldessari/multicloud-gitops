@@ -64,7 +64,7 @@ spec:
                   namespace: openshift-gitops
                 spec:
                   image: kuemper.int.rhx/bandini/argocd
-                  version: latest
+                  version: broken
                   applicationSet:
                     resources:
                       limits:
