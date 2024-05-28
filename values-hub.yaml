@@ -92,16 +92,16 @@ clusterGroup:
         - name: clusterGroup.isHubCluster
           value: false
 
-    group-with-deployments:
-      name: firsto-group
-      clusterDeployments:
-        myFirstCustomSpoke:
-          name: first-spoke
-          openshiftVersion: 4.14.12
-          baseDomain: aws.validatedpatterns.io
-          platform:
-            aws:
-              region: eu-west-1
+    # group-with-deployments:
+    #   name: firsto-group
+    #   clusterDeployments:
+    #     myFirstCustomSpoke:
+    #       name: first-spoke
+    #       openshiftVersion: 4.14.12
+    #       baseDomain: aws.validatedpatterns.io
+    #       platform:
+    #         aws:
+    #           region: eu-west-1
           # Before enabling cluster provisioning, ensure AWS and/or Azure
           #   credentials and OCP pull secrets are defined in Vault.
           #   See values-secret.yaml.template
