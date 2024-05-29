@@ -11,6 +11,12 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
     argocd.argoproj.io/compare-options: IgnoreExtraneous
 spec:
+  dependencies:
+    - apiVersion: policy.open-cluster-management.io/v1
+      compliance: Compliant
+      kind: Policy
+      name: openshift-gitops-policy
+      namespace: open-cluster-management
   remediationAction: enforce
   disabled: false
   policy-templates:
