@@ -23,7 +23,7 @@
     name: kube-root-ca
   - mountPath: /var/run/trusted-ca
     name: trusted-ca-bundle
-  - mountpath: /var/run/trusted-hub
+  - mountPath: /var/run/trusted-hub
     name: trusted-hub-bundle
   - mountPath: /tmp/ca-bundles
     name: ca-bundles
@@ -97,7 +97,7 @@
   name: kube-root-ca
 - mountPath: /var/run/trusted-ca
   name: trusted-ca-bundle
-- mountpath: /var/run/trusted-hub
+- mountPath: /var/run/trusted-hub
   name: trusted-hub-bundle
 - mountPath: /tmp/ca-bundles
   name: ca-bundles
