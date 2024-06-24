@@ -18,6 +18,12 @@ Default always defined top-level variables for helm charts
   value: "{{ $.Values.global.clusterPlatform }}"
 - name: global.hubClusterDomain
   value: {{ $.Values.global.hubClusterDomain }}
+- name: global.multiSourceSupport
+  value: {{ $.Values.global.multiSourceSupport }}
+- name: global.multiSourceRepoUrl
+  value: {{ $.Values.global.multiSourceRepoUrl }}
+- name: global.multiSourceTargetRevision
+  value: {{ $.Values.global.multiSourceTargetRevision }}
 - name: global.localClusterDomain
   value: {{ coalesce $.Values.global.localClusterDomain $.Values.global.hubClusterDomain }}
 - name: global.privateRepo
