@@ -20,6 +20,7 @@ Default always defined top-level variables for helm charts
   value: {{ $.Values.global.hubClusterDomain }}
 - name: global.multiSourceSupport
   value: {{ $.Values.global.multiSourceSupport }}
+  forceString: true
 - name: global.multiSourceRepoUrl
   value: {{ $.Values.global.multiSourceRepoUrl }}
 - name: global.multiSourceTargetRevision
