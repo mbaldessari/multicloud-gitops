@@ -42,8 +42,9 @@ clusterGroup:
       name: acm
       namespace: open-cluster-management
       project: hub
-      chart: acm
-      chartVersion: 0.0.*
+      #chart: acm
+      #chartVersion: 0.0.*
+      path: common/acm
       ignoreDifferences:
         - group: internal.open-cluster-management.io
           kind: ManagedClusterInfo
