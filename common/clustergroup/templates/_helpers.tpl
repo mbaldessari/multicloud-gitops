@@ -3,9 +3,9 @@ Default always defined top-level variables for helm charts
 */}}
 {{- define "clustergroup.app.globalvalues.helmparameters" -}}
 - name: global.repoURL
-  value: $ARGOCD_APP_SOURCE_REPO_URL
+  value: {{ $.Values.global.repoURL }}
 - name: global.targetRevision
-  value: $ARGOCD_APP_SOURCE_TARGET_REVISION
+  value: {{ $.Values.global.targetRevision }}
 - name: global.namespace
   value: $ARGOCD_APP_NAMESPACE
 - name: global.pattern
