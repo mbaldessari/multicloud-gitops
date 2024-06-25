@@ -56,30 +56,9 @@ spec:
                         - {{ $valueFile | quote }}
                         {{- end }}
                         parameters:
-                        - name: global.repoURL
-                          value: {{ $.Values.global.repoURL }}
-                        - name: global.targetRevision
-                          value: {{ $.Values.global.targetRevision }}
-                        - name: global.namespace
-                          value: $ARGOCD_APP_NAMESPACE
-                        - name: global.pattern
-                          value: {{ $.Values.global.pattern }}
-                        - name: global.hubClusterDomain
-                          value: {{ $.Values.global.hubClusterDomain }}
-                        - name: global.localClusterDomain
-                          value: '{{ `{{ (lookup "config.openshift.io/v1" "Ingress" "" "cluster").spec.domain }}` }}'
-                        - name: global.clusterDomain
-                          value: '{{ `{{ (lookup "config.openshift.io/v1" "Ingress" "" "cluster").spec.domain | replace "apps." "" }}` }}'
-                        - name: global.clusterVersion
-                          value: '{{ `{{ printf "%d.%d" ((semver (index (lookup "config.openshift.io/v1" "ClusterVersion" "" "version").status.history 0).version).Major) ((semver (index (lookup "config.openshift.io/v1" "ClusterVersion" "" "version").status.history 0).version).Minor) }}` }}'
-                        - name: global.localClusterName
-                          value: '{{ `{{ (split "." (lookup "config.openshift.io/v1" "Ingress" "" "cluster").spec.domain)._1 }}` }}'
-                        - name: global.clusterPlatform
-                          value: {{ $.Values.global.clusterPlatform }}
+                        {{- include "acm.app.policies.helmparameters" . | indent 24 }}
                         - name: clusterGroup.name
                           value: {{ $group.name }}
-                        - name: global.experimentalCapabilities
-                          value: {{ $.Values.global.experimentalCapabilities }}
                         {{- range $k, $v := $.Values.extraParametersNested }}
                         - name: {{ $k }}
                           value: {{ printf "%s" $v | quote }}
@@ -114,30 +93,9 @@ spec:
                       - {{ $valueFile | quote }}
                       {{- end }}
                       parameters:
-                      - name: global.repoURL
-                        value: {{ $.Values.global.repoURL }}
-                      - name: global.targetRevision
-                        value: {{ $.Values.global.targetRevision }}
-                      - name: global.namespace
-                        value: $ARGOCD_APP_NAMESPACE
-                      - name: global.pattern
-                        value: {{ $.Values.global.pattern }}
-                      - name: global.hubClusterDomain
-                        value: {{ $.Values.global.hubClusterDomain }}
-                      - name: global.localClusterDomain
-                        value: '{{ `{{ (lookup "config.openshift.io/v1" "Ingress" "" "cluster").spec.domain }}` }}'
-                      - name: global.clusterDomain
-                        value: '{{ `{{ (lookup "config.openshift.io/v1" "Ingress" "" "cluster").spec.domain | replace "apps." "" }}` }}'
-                      - name: global.clusterVersion
-                        value: '{{ `{{ printf "%d.%d" ((semver (index (lookup "config.openshift.io/v1" "ClusterVersion" "" "version").status.history 0).version).Major) ((semver (index (lookup "config.openshift.io/v1" "ClusterVersion" "" "version").status.history 0).version).Minor) }}` }}'
-                      - name: global.localClusterName
-                        value: '{{ `{{ (split "." (lookup "config.openshift.io/v1" "Ingress" "" "cluster").spec.domain)._1 }}` }}'
-                      - name: global.clusterPlatform
-                        value: {{ $.Values.global.clusterPlatform }}
+                      {{- include "acm.app.policies.helmparameters" . | indent 22 }}
                       - name: clusterGroup.name
                         value: {{ $group.name }}
-                      - name: global.experimentalCapabilities
-                        value: {{ $.Values.global.experimentalCapabilities }}
                       {{- range $k, $v := $.Values.extraParametersNested }}
                       - name: {{ $k }}
                         value: {{ printf "%s" $v | quote }}

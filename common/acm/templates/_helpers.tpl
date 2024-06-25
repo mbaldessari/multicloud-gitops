@@ -22,3 +22,38 @@ Default always defined valueFiles to be included when pushing the cluster wide a
 # hub's cluster version, whereas we want to include the spoke cluster version
 - '$patternref/values-{{ `{{ printf "%d.%d" ((semver (index (lookup "config.openshift.io/v1" "ClusterVersion" "" "version").status.history 0).version).Major) ((semver (index (lookup "config.openshift.io/v1" "ClusterVersion" "" "version").status.history 0).version).Minor) }}` }}.yaml'
 {{- end }} {{- /*acm.app.policies.multisourcevaluefiles */}}
+
+{{- define "acm.app.policies.helmparameters" -}}
+- name: global.repoURL
+  value: {{ $.Values.global.repoURL }}
+- name: global.targetRevision
+  value: {{ $.Values.global.targetRevision }}
+- name: global.namespace
+  value: $ARGOCD_APP_NAMESPACE
+- name: global.pattern
+  value: {{ $.Values.global.pattern }}
+- name: global.hubClusterDomain
+  value: {{ $.Values.global.hubClusterDomain }}
+- name: global.localClusterDomain
+  value: '{{ `{{ (lookup "config.openshift.io/v1" "Ingress" "" "cluster").spec.domain }}` }}'
+- name: global.clusterDomain
+  value: '{{ `{{ (lookup "config.openshift.io/v1" "Ingress" "" "cluster").spec.domain | replace "apps." "" }}` }}'
+- name: global.clusterVersion
+  value: '{{ `{{ printf "%d.%d" ((semver (index (lookup "config.openshift.io/v1" "ClusterVersion" "" "version").status.history 0).version).Major) ((semver (index (lookup "config.openshift.io/v1" "ClusterVersion" "" "version").status.history 0).version).Minor) }}` }}'
+- name: global.localClusterName
+  value: '{{ `{{ (split "." (lookup "config.openshift.io/v1" "Ingress" "" "cluster").spec.domain)._1 }}` }}'
+- name: global.clusterPlatform
+  value: {{ $.Values.global.clusterPlatform }}
+- name: global.multiSourceSupport
+  value: {{ $.Values.global.multiSourceSupport | quote }}
+- name: global.multiSourceRepoUrl
+  value: {{ $.Values.global.multiSourceRepoUrl }}
+- name: global.multiSourceTargetRevision
+  value: {{ $.Values.global.multiSourceTargetRevision }}
+- name: global.localClusterDomain
+  value: {{ coalesce $.Values.global.localClusterDomain $.Values.global.hubClusterDomain }}
+- name: global.privateRepo
+  value: {{ $.Values.global.privateRepo | quote }}
+- name: global.experimentalCapabilities
+  value: {{ $.Values.global.experimentalCapabilities }}
+{{- end }} {{- /*acm.app.policies.helmparameters */}}
