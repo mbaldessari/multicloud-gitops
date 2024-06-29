@@ -50,8 +50,6 @@ Default always defined valueFiles to be included when pushing the cluster wide a
   value: {{ $.Values.global.multiSourceRepoUrl }}
 - name: global.multiSourceTargetRevision
   value: {{ $.Values.global.multiSourceTargetRevision }}
-- name: global.localClusterDomain
-  value: {{ coalesce $.Values.global.localClusterDomain $.Values.global.hubClusterDomain }}
 - name: global.privateRepo
   value: {{ $.Values.global.privateRepo | quote }}
 - name: global.experimentalCapabilities
