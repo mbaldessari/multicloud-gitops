@@ -8,4 +8,17 @@ global:
 main:
   clusterGroupName: hub
   multiSourceConfig:
+    helmRepoUrl: kuemper.int.rhx/ocp/hybridcloudpatterns
     enabled: true
+  patternsOperator:
+    source: cs-community-operator-index-v4-16
+  gitops:
+    operatorSource: cs-redhat-operator-index-v4-16
+
+clusterGroup:
+  subscriptions:
+    acm:
+      source: cs-redhat-operator-index-v4-16
+acm:
+  mce_operator:
+    source: cs-redhat-operator-index-v4-16
