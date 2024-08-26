@@ -5,6 +5,7 @@ global:
     useCSV: false
     syncPolicy: Automatic
     installPlanApproval: Automatic
+  multiSourceRepoUrl: kuemper.int.rhx/ocp/hybridcloudpatterns
 main:
   clusterGroupName: hub
   multiSourceConfig:
