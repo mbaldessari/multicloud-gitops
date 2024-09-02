@@ -13,6 +13,11 @@ clusterGroup:
       namespace: open-cluster-management
       channel: release-2.11
       #csv: advanced-cluster-management.v2.6.1
+    eso:
+      channel: alpha
+      name: external-secrets-operator
+      namespace: golang-external-secrets
+      source: community-operators
   projects:
     - hub
     - config-demo

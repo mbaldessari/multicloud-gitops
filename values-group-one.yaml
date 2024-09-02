@@ -16,6 +16,12 @@ clusterGroup:
     - eso
     - config-demo
     - hello-world
+  subscriptions:
+    eso:
+      channel: alpha
+      name: external-secrets-operator
+      namespace: golang-external-secrets
+      source: community-operators
   applications:
     golang-external-secrets:
       name: golang-external-secrets
