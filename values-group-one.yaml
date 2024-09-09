@@ -20,8 +20,9 @@ clusterGroup:
     golang-external-secrets:
       name: golang-external-secrets
       namespace: golang-external-secrets
-      project: eso
-      path: common/golang-external-secrets
+      project: hub
+      chart: golang-external-secrets
+      chartVersion: 0.1.*
     config-demo:
       name: config-demo
       namespace: config-demo
