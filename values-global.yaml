@@ -7,5 +7,7 @@ global:
     installPlanApproval: Automatic
 main:
   clusterGroupName: hub
+  git:
+    repoUpstreamURL: https://github.com/mbaldessari/multicloud-gitops
   multiSourceConfig:
     enabled: true
