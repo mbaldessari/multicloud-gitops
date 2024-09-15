@@ -8,6 +8,18 @@ function version {
     echo "$@" | awk -F. '{ printf("%d%03d%03d%03d\n", $1,$2,$3,$4); }'
 }
 
+function check_for_clustergroup_multisource {
+    if [ -f values-global.yaml ]; then
+        # Query .main.multiSourceConfig.enabled and assume it is false if not set
+        OUT=$(yq -r '.main.multiSourceConfig.enabled // (.main.multiSourceConfig.enabled = "false")')
+        if [ "${OUT,,}" = "false" ]; then
+            echo "You must set `.main.multiSourceConfig.enabled: true` in your 'values-global.yaml' file"
+            echo "because your common subfolder is the slimmed down version with no helm charts in it"
+            exit 1
+        fi
+    fi
+}
+
 if [ -z "$PATTERN_UTILITY_CONTAINER" ]; then
 	PATTERN_UTILITY_CONTAINER="quay.io/hybridcloudpatterns/utility-container"
 fi
@@ -66,27 +78,35 @@ else
     PKI_HOST_MOUNT_ARGS=""
 fi
 
+# In the slimmed down common branch we need to check that multisource is enabled for the clustergroup
+# chart
+check_for_clustergroup_multisource
+
 # Copy Kubeconfig from current environment. The utilities will pick up ~/.kube/config if set so it's not mandatory
 # $HOME is mounted as itself for any files that are referenced with absolute paths
 # $HOME is mounted to /root because the UID in the container is 0 and that's where SSH looks for credentials
 
 podman run -it --rm --pull=newer \
-	--security-opt label=disable \
-	-e EXTRA_HELM_OPTS \
-	-e EXTRA_PLAYBOOK_OPTS \
-	-e VALUES_SECRET \
-	-e KUBECONFIG \
-	-e K8S_AUTH_HOST \
-	-e K8S_AUTH_VERIFY_SSL \
-	-e K8S_AUTH_SSL_CA_CERT \
-	-e K8S_AUTH_USERNAME \
-	-e K8S_AUTH_PASSWORD \
-	-e K8S_AUTH_TOKEN \
-	${PKI_HOST_MOUNT_ARGS} \
-	-v "${HOME}":"${HOME}" \
-	-v "${HOME}":/pattern-home \
-	${PODMAN_ARGS} \
-	${EXTRA_ARGS} \
-	-w "$(pwd)" \
-	"$PATTERN_UTILITY_CONTAINER" \
-	$@
+    --security-opt label=disable \
+    -e EXTRA_HELM_OPTS \
+    -e EXTRA_PLAYBOOK_OPTS \
+    -e TARGET_ORIGIN \
+    -e NAME \
+    -e TOKEN_SECRET \
+    -e TOKEN_NAMESPACE \
+    -e VALUES_SECRET \
+    -e KUBECONFIG \
+    -e K8S_AUTH_HOST \
+    -e K8S_AUTH_VERIFY_SSL \
+    -e K8S_AUTH_SSL_CA_CERT \
+    -e K8S_AUTH_USERNAME \
+    -e K8S_AUTH_PASSWORD \
+    -e K8S_AUTH_TOKEN \
+    ${PKI_HOST_MOUNT_ARGS} \
+    -v "${HOME}":"${HOME}" \
+    -v "${HOME}":/pattern-home \
+    ${PODMAN_ARGS} \
+    ${EXTRA_ARGS} \
+    -w "$(pwd)" \
+    "$PATTERN_UTILITY_CONTAINER" \
+    $@
