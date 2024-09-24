@@ -8,6 +8,9 @@ global:
 main:
   clusterGroupName: hub
   multiSourceRepoUrl: kuemper.int.rhx/ocp/hybridcloudpatterns
+  git:
+    repoURL: https://gitea.ocplab.ocp/bandini/mcg/
+    revision: disconnected-slim
   multiSourceConfig:
     enabled: true
     clusterGroupChartVersion: 0.9.*
