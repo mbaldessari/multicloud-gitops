@@ -42,8 +42,9 @@ clusterGroup:
       name: acm
       namespace: open-cluster-management
       project: hub
-      chart: acm
-      chartVersion: 0.1.*
+      path: "."
+      chartVersion: cleanup-applicationsets-hostedargo
+      repoURL: https://github.com/mbaldessari/acm-chart
       ignoreDifferences:
         - group: internal.open-cluster-management.io
           kind: ManagedClusterInfo
