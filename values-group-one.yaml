@@ -10,8 +10,12 @@ clusterGroup:
     - config-demo
     - hello-world
     - golang-external-secrets
-  # The only subscription on spokes is gitops which gets managed by ACM
-  # subscriptions:
+  subscriptions:
+    eso:
+      channel: alpha
+      name: external-secrets-operator
+      namespace: golang-external-secrets
+      source: community-operators
   projects:
     - eso
     - config-demo
