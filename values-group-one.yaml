@@ -21,12 +21,18 @@ clusterGroup:
     - config-demo
     - hello-world
   applications:
+    eso:
+      channel: alpha
+      name: external-secrets-operator
+      namespace: golang-external-secrets
+      source: community-operators
     golang-external-secrets:
       name: golang-external-secrets
       namespace: golang-external-secrets
-      project: eso
-      chart: golang-external-secrets
-      chartVersion: 0.1.*
+      project: hub
+      path: "."
+      chartVersion: eso-operator
+      repoURL: https://github.com/mbaldessari/golang-external-secrets-chart
     config-demo:
       name: config-demo
       namespace: config-demo
