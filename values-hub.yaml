@@ -65,7 +65,7 @@ clusterGroup:
       namespace: golang-external-secrets
       project: hub
       path: "."
-      chartVersion: eso-v0.2.dev
+      chartVersion: update
       repoURL: https://github.com/mbaldessari/golang-external-secrets-chart
     config-demo:
       name: config-demo
