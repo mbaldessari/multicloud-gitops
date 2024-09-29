@@ -1,3 +1,7 @@
+acm:
+  mce_operator:
+    source: cs-redhat-operator-index-v4-16
+
 clusterGroup:
   name: hub
   isHubCluster: true
@@ -12,6 +16,8 @@ clusterGroup:
       name: advanced-cluster-management
       namespace: open-cluster-management
       channel: release-2.11
+      source: cs-redhat-operator-index-v4-16
+
       #csv: advanced-cluster-management.v2.6.1
   projects:
     - hub
