@@ -10,3 +10,8 @@ main:
   multiSourceConfig:
     enabled: true
     clusterGroupChartVersion: "0.9.*"
+    helmRepoURL: kuemper.int.rhx/ocp/hybridcloudpatterns
+  patternsOperator:
+    source: cs-community-operator-index-v4-16
+  gitops:
+    operatorSource: cs-redhat-operator-index-v4-16
