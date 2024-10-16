@@ -42,8 +42,11 @@ clusterGroup:
       name: acm
       namespace: open-cluster-management
       project: hub
-      chart: acm
-      chartVersion: 0.1.*
+      # chart: acm
+      # chartVersion: 0.1.*
+      path: "."
+      chartVersion: fix-argocd-policy
+      repoURL: https://github.com/mbaldessari/acm-chart
       ignoreDifferences:
         - group: internal.open-cluster-management.io
           kind: ManagedClusterInfo
