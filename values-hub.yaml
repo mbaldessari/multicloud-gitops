@@ -16,7 +16,7 @@ clusterGroup:
       # csv: advanced-cluster-management.v2.6.1
     cert-manager:
       name: openshift-cert-manager-operator
-      source: redhat-operators
+      namespace: cert-manager-operator
       channel: stable-v1
 
   argoProjects:
