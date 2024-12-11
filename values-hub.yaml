@@ -2,6 +2,7 @@ clusterGroup:
   name: hub
   # Namespace is a dictionary for easier overriding (lists are supported as well)
   namespaces:
+    cert-manager:
     open-cluster-management:
     vault:
     golang-external-secrets:
@@ -13,6 +14,10 @@ clusterGroup:
       namespace: open-cluster-management
       channel: release-2.16
       # csv: advanced-cluster-management.v2.6.1
+    cert-manager:
+      name: cert-manager
+      channel: stable-v1
+
   argoProjects:
     - hub
     - config-demo
