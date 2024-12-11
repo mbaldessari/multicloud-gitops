@@ -56,7 +56,7 @@ clusterGroup:
             - /spec/loggingCA
     cert-manager:
       name: cert-manager
-      namespace: cert-manager-operator
+      namespace: cert-manager
       project: hub
       path: charts/hub/vp-cert-manager
     vault:
