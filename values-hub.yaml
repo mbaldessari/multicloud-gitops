@@ -2,17 +2,21 @@ clusterGroup:
   name: hub
   isHubCluster: true
   namespaces:
+    - cert-manager
+    - config-demo
+    - golang-external-secrets
+    - hello-world
     - open-cluster-management
     - vault
-    - golang-external-secrets
-    - config-demo
-    - hello-world
   subscriptions:
     acm:
       name: advanced-cluster-management
       namespace: open-cluster-management
       channel: release-2.11
-      #csv: advanced-cluster-management.v2.6.1
+    cert-manager:
+      name: cert-manager
+      channel: stable-v1
+
   projects:
     - hub
     - config-demo
