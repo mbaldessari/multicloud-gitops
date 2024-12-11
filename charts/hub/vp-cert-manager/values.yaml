@@ -1,4 +1,8 @@
 ---
+vpCertManager:
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+
 global:
   hubClusterDomain: hub.example.com
   localCluster: local.example.com
