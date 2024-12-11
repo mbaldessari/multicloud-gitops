@@ -51,6 +51,11 @@ clusterGroup:
       argoProject: hub
       chart: acm
       chartVersion: 0.1.*
+    cert-manager:
+      name: cert-manager
+      namespace: cert-manager-operator
+      project: hub
+      path: charts/hub/vp-cert-manager
     vault:
       name: vault
       namespace: vault
