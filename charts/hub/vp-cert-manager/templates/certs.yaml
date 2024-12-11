@@ -1,0 +1,31 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ingress-cert
+  namespace: openshift-authentication
+  labels:
+    app: cert-manager
+spec:
+  secretName: ingress-cert
+  secretTemplate:
+    labels:
+      app: cert-manager
+  duration: {{ .Values.vpCertManager.duration }}
+  renewBefore: {{ .Values.vpCertManager.renewBefore }}
+  subject:
+    organizations:
+      - Validated Patterns Team
+  commonName: '*.{{ .Values.global.localCluster }}'
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 2048
+    rotationPolicy: Always
+  usages:
+    - server auth
+    - client auth
+  dnsNames:
+    - '*.{{ .Values.global.localCluster }}'
+  issuerRef:
+    name: vp-ca-issuer
+    kind: ClusterIssuer
