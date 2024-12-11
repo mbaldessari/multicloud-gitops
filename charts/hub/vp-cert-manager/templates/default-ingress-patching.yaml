@@ -24,4 +24,4 @@ spec:
   routeAdmission:
     wildcardPolicy: WildcardsAllowed
   defaultCertificate:
-    name: lets-encrypt-wildcart-cert-tls
+    name: ingress-cert
