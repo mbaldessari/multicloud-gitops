@@ -18,7 +18,7 @@ spec:
     algorithm: ECDSA
     size: 256
   issuerRef:
-    name: selfsigned-issuer
+    name: vp-ca-selfsigned-issuer
     kind: ClusterIssuer
     group: cert-manager.io
 ---
@@ -29,3 +29,4 @@ metadata:
 spec:
   ca:
     secretName: vp-ca-root-secret
+    #secretNamespace: cert-manager-operator
