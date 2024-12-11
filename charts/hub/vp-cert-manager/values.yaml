@@ -5,4 +5,4 @@ vpCertManager:
 
 global:
   hubClusterDomain: hub.example.com
-  localCluster: local.example.com
+  localClusterDomain: local.example.com
