@@ -14,7 +14,8 @@ clusterGroup:
       namespace: open-cluster-management
       channel: release-2.11
     cert-manager:
-      name: cert-manager
+      name: openshift-cert-manager-operator
+      source: redhat-operators
       channel: stable-v1
 
   projects:
