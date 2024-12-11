@@ -2,7 +2,7 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: selfsigned-issuer
+  name: vp-ca-selfsigned-issuer
 spec:
   selfSigned: {}
 ---
@@ -23,7 +23,7 @@ spec:
     group: cert-manager.io
 ---
 apiVersion: cert-manager.io/v1
-kind: Issuer
+kind: ClusterIssuer
 metadata:
   name: vp-ca-issuer
 spec:
