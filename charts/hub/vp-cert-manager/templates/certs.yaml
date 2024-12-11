@@ -15,7 +15,7 @@ spec:
   subject:
     organizations:
       - Validated Patterns Team
-  commonName: '*.{{ .Values.global.localCluster }}'
+  commonName: '*.{{ .Values.global.localClusterDomain }}'
   privateKey:
     algorithm: RSA
     encoding: PKCS1
@@ -25,7 +25,7 @@ spec:
     - server auth
     - client auth
   dnsNames:
-    - '*.{{ .Values.global.localCluster }}'
+    - '*.{{ .Values.global.localClusterDomain }}'
   issuerRef:
     name: vp-ca-issuer
     kind: ClusterIssuer
