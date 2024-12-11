@@ -1,0 +1,22 @@
+kind: Certificate
+metadata:
+  name: api-cert
+  namespace: openshift-config
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  secretName: api-cert
+  duration: {{ .Values.vpCertManager.duration }}
+  renewBefore: {{ .Values.vpCertManager.renewBefore }}
+  commonName: 'api.{{ $.Values.global.clusterDomain }}'
+  usages:
+    - server auth
+    - client auth
+  dnsNames:
+  - api.{{ $.Values.global.clusterDomain }}
+  issuerRef:
+    name: vp-ca-issuer
+    kind: ClusterIssuer
+  subject:
+    organizations:
+      - Validated Patterns Team
