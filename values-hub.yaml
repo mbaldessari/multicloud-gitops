@@ -2,7 +2,7 @@ clusterGroup:
   name: hub
   isHubCluster: true
   namespaces:
-    - cert-manager
+    - cert-manager-operator
     - config-demo
     - golang-external-secrets
     - hello-world
