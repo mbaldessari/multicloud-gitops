@@ -11,8 +11,14 @@ help:
 %:
 	make -f common/Makefile $*
 
+.PHONY: cert-test
+cert-test: ## silly test to reuse the existing API CA in cert-manager
+	oc new-project cert-manager
+	oc get -n openshift-kube-apiserver-operator secrets/localhost-serving-signer --namespace=openshift-kube-apiserver-operator  -o yaml |  grep -v '^\s*namespace:\s'  | oc apply --namespace=cert-manager -f -
+
+
 .PHONY: install
-install: operator-deploy post-install ## installs the pattern and loads the secrets
+install: cert-test operator-deploy post-install ## installs the pattern and loads the secrets
 	@echo "Installed"
 
 .PHONY: post-install
