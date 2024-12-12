@@ -1,17 +1,3 @@
-{{/* apiVersion: config.openshift.io/v1 */}}
-{{/* kind: APIServer */}}
-{{/* metadata: */}}
-{{/*   name: cluster */}}
-{{/*   annotations: */}}
-{{/*     argocd.argoproj.io/sync-options: ServerSideApply=true, Validate=false, SkipDryRunOnMissingResource=true */}}
-{{/* spec: */}}
-{{/*   servingCerts: */}}
-{{/*     namedCertificates: */}}
-{{/*       - names: */}}
-{{/*         - api.{{ $.Values.global.localClusterDomain | replace "apps." "" }} */}}
-{{/*         servingCertificate: */}}
-{{/*           name: api-validated-patterns-letsencrypt-cert */}}
-
 ---
 apiVersion: operator.openshift.io/v1
 kind: IngressController
