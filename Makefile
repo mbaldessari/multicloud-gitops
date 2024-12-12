@@ -13,8 +13,8 @@ help:
 
 .PHONY: cert-test
 cert-test: ## silly test to reuse the existing API CA in cert-manager
-	oc new-project cert-manager
-	oc get -n openshift-kube-apiserver-operator secrets/localhost-serving-signer --namespace=openshift-kube-apiserver-operator  -o yaml |  grep -v '^\s*namespace:\s'  | oc apply --namespace=cert-manager -f -
+	-oc new-project cert-manager
+	-oc get -n openshift-kube-apiserver-operator secrets/localhost-serving-signer --namespace=openshift-kube-apiserver-operator  -o yaml |  grep -v '^\s*namespace:\s'  | oc apply --namespace=cert-manager -f - 
 
 
 .PHONY: install
