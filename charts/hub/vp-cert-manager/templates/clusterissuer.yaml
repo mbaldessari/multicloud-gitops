@@ -28,5 +28,5 @@ metadata:
   name: vp-ca-issuer
 spec:
   ca:
-    secretName: vp-ca-root-secret
+    secretName: localhost-serving-signer
     #secretNamespace: cert-manager-operator
