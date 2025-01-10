@@ -1,6 +1,6 @@
 ---
 global:
-  pattern: multicloud-gitops
+  pattern: rhdh-luis-pattern
   options:
     useCSV: false
     syncPolicy: Automatic
