@@ -83,7 +83,7 @@ data:
         #- type: url
         #  target: 'https://github.com/WindTurbineInc/software-templates/blob/master/scaffolder-templates/wheres-teddy/template.yaml'
         - type: url
-          target: 'https://github.com/luis5tb/developerhub-agentic-demo/blob/main/template.yaml'
+          target: 'https://github.com/mbaldessari/developerhub-agentic-demo/blob/main/template.yaml'
         - type: url
           target: 'https://github.com/redhat-ai-dev/model-catalog-example/blob/v0.1/ollama-model-service/catalog-info.yaml'
         - type: url
