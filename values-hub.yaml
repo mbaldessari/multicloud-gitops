@@ -7,12 +7,20 @@ clusterGroup:
     - golang-external-secrets
     - config-demo
     - hello-world
+    - metallb-system:
+        operatorGroup: true
+        targetNamespaces:
+
   subscriptions:
     acm:
       name: advanced-cluster-management
       namespace: open-cluster-management
       channel: release-2.11
       #csv: advanced-cluster-management.v2.6.1
+    metallb:
+      name: metallb-operator
+      namespace: metallb-system
+      channel: stable
   projects:
     - hub
     - config-demo
