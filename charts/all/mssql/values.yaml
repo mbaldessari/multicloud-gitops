@@ -1,6 +1,9 @@
 # Default values for mssql-latest.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+secretStore:
+  name: vault-backend
+  kind: ClusterSecretStore
 
 replicas: 1
 
@@ -8,7 +11,7 @@ image:
   repository: mcr.microsoft.com/mssql/server
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "2019-latest"
+  tag: "2022-latest"
 
 ACCEPT_EULA:
     value: "y"
@@ -24,7 +27,12 @@ containers:
 podAnnotations: {}
 
 podSecurityContext:
-   fsGroup: 10001
+  fsGroupChangePolicy: OnRootMismatch
+
+containerSecurityContext:
+  capabilities:
+    add:
+      - NET_BIND_SERVICE
 
 service:
   type: LoadBalancer
