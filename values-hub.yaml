@@ -3,6 +3,7 @@ clusterGroup:
   isHubCluster: true
   namespaces:
     - open-cluster-management
+    - mssql
     - vault
     - golang-external-secrets
     - config-demo
@@ -38,6 +39,11 @@ clusterGroup:
   #   - '/overrides/values-{{ $.Values.global.hubClusterDomain }}.yaml'
   #   - '/overrides/values-{{ $.Values.global.localClusterDomain }}.yaml'
   applications:
+    mssql:
+      name: mssql
+      namespace: mssql
+      project: hub
+      path: charts/all/mssql
     acm:
       name: acm
       namespace: open-cluster-management
