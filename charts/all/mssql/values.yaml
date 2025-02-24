@@ -8,10 +8,13 @@ secretStore:
 replicas: 1
 
 image:
-  repository: mcr.microsoft.com/mssql/server
+  #repository: mcr.microsoft.com/mssql/server
+  registry: sqlservereap.azurecr.io
+  repository: sqlservereap.azurecr.io/mssql-sql2025-ctp1-3-release/mssql-server-rhel9
+  tag: 17.0.400.5_4
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "2022-latest"
+  #tag: "2022-latest"
 
 ACCEPT_EULA:
     value: "y"
@@ -22,7 +25,7 @@ MSSQL_AGENT_ENABLED:
 hostname: mssqllatest
 containers:
   ports:
-      containerPort: 1433
+    containerPort: 1433
 
 podAnnotations: {}
 
