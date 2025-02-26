@@ -12,7 +12,8 @@ clusterGroup:
       name: advanced-cluster-management
       namespace: open-cluster-management
       channel: release-2.11
-      #csv: advanced-cluster-management.v2.6.1
+      csv: advanced-cluster-management.v2.11.1
+      installPlanApproval: Manual
   projects:
     - hub
     - config-demo
