@@ -60,8 +60,10 @@ clusterGroup:
       name: golang-external-secrets
       namespace: golang-external-secrets
       project: hub
-      chart: golang-external-secrets
-      chartVersion: 0.1.*
+      # chart: golang-external-secrets
+      path: "."
+      repoURL: https://github.com/mbaldessari/golang-external-secrets-chart
+      chartVersion: new-eso
     config-demo:
       name: config-demo
       namespace: config-demo
