@@ -10,3 +10,7 @@ main:
   multiSourceConfig:
     enabled: true
     clusterGroupChartVersion: "0.9.*"
+  patternsOperator:
+    source: cs-community-operator-index-v4-19
+  gitops:
+    operatorSource: cs-redhat-operator-index-v4-19
