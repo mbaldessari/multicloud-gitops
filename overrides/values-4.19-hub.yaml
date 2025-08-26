@@ -4,3 +4,4 @@ clusterGroup:
       name: advanced-cluster-management
       namespace: open-cluster-management
       channel: release-2.13
+      source: cs-redhat-operator-index-v4-19
