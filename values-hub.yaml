@@ -67,7 +67,7 @@ clusterGroup:
       project: hub
       # chart: golang-external-secrets
       path: "."
-      repoURL: https://github.com/mbaldessari/golang-external-secrets-chart
+      repoURL: https://gitea.ocplab.ocp/bandini/golang-external-secrets-chart.git
       chartVersion: new-eso
     config-demo:
       name: config-demo
