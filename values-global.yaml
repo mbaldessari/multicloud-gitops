@@ -14,3 +14,4 @@ main:
     source: cs-community-operator-index-v4-19
   gitops:
     operatorSource: cs-redhat-operator-index-v4-19
+    channel: "gitops-1.17"
