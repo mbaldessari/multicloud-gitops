@@ -54,8 +54,9 @@ clusterGroup:
       name: vault
       namespace: vault
       project: hub
-      chart: hashicorp-vault
-      chartVersion: 0.1.*
+      path: "."
+      repoURL: https://github.com/mbaldessari/hashicorp-vault-chart
+      chartVersion: update-vault-1.20
     golang-external-secrets:
       name: golang-external-secrets
       namespace: golang-external-secrets
