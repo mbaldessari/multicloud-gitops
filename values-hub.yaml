@@ -3,6 +3,9 @@ clusterGroup:
   isHubCluster: true
   namespaces:
     - config-demo
+    - external-secrets-operator:
+        operatorGroup: true
+        targetNamespaces: []
     - golang-external-secrets
     - hello-world
     - open-cluster-management
@@ -13,6 +16,18 @@ clusterGroup:
       namespace: open-cluster-management
       channel: release-2.14
       # csv: advanced-cluster-management.v2.6.1
+    eso:
+      name: openshift-external-secrets-operator
+      namespace: external-secrets-operator
+      channel: tech-preview-v0.1
+      config:
+        resources:
+          requests:
+            cpu: 10m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 256Mi
   projects:
     - hub
     - config-demo
