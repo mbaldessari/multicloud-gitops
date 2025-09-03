@@ -9,9 +9,23 @@ clusterGroup:
   namespaces:
     - config-demo
     - hello-world
+    - external-secrets-operator:
+        operatorGroup: true
+        targetNamespaces: []
     - golang-external-secrets
-  # The only subscription on spokes is gitops which gets managed by ACM
-  # subscriptions:
+  subscriptions:
+    eso:
+      name: openshift-external-secrets-operator
+      namespace: external-secrets-operator
+      channel: tech-preview-v0.1
+      config:
+        resources:
+          requests:
+            cpu: 10m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 256Mi
   projects:
     - eso
     - config-demo
@@ -21,8 +35,9 @@ clusterGroup:
       name: golang-external-secrets
       namespace: golang-external-secrets
       project: eso
-      chart: golang-external-secrets
-      chartVersion: 0.1.*
+      path: "."
+      repoURL: https://github.com/mbaldessari/golang-external-secrets-chart
+      chartVersion: downstream-eso
     config-demo:
       name: config-demo
       namespace: config-demo
