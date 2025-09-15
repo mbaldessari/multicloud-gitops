@@ -20,7 +20,7 @@ clusterGroup:
       name: openshift-external-secrets-operator
       namespace: external-secrets-operator
       channel: alpha
-      catalogSource: test-eso-operator
+      source: test-eso-operator
       config:
         resources:
           requests:
