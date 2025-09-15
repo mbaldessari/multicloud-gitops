@@ -15,9 +15,10 @@ clusterGroup:
     - golang-external-secrets
   subscriptions:
     eso:
-      name: openshift-external-secrets-operator
+      name: external-secrets-operator
       namespace: external-secrets-operator
-      channel: tech-preview-v0.1
+      channel: alpha
+      source: test-eso-operator
       config:
         resources:
           requests:
