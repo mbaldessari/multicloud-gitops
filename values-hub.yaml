@@ -45,7 +45,7 @@ clusterGroup:
       project: hub
       path: "."
       repoURL: https://github.com/mbaldessari/acm-chart
-      chartVersion: clusterplatform
+      chartVersion: fix-acm-policies-without-clustergroup-label
     vault:
       name: vault
       namespace: vault
