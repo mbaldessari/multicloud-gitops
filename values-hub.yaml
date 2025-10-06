@@ -43,8 +43,9 @@ clusterGroup:
       name: acm
       namespace: open-cluster-management
       argoProject: hub
-      chart: acm
-      chartVersion: 0.1.*
+      path: "."
+      chartVersion: quick-clustergroup-test
+      repoURL: https://github.com/mbaldessari/acm-chart
     vault:
       name: vault
       namespace: vault
