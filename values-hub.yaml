@@ -13,7 +13,7 @@ clusterGroup:
       namespace: open-cluster-management
       channel: release-2.14
       # csv: advanced-cluster-management.v2.6.1
-  projects:
+  argoProjects:
     - hub
     - config-demo
     - hello-world
@@ -42,13 +42,13 @@ clusterGroup:
     acm:
       name: acm
       namespace: open-cluster-management
-      project: hub
+      argoProject: hub
       chart: acm
       chartVersion: 0.1.*
     vault:
       name: vault
       namespace: vault
-      project: hub
+      argoProject: hub
       chart: hashicorp-vault
       chartVersion: 0.1.*
     golang-external-secrets:
