@@ -7,8 +7,8 @@ global:
     installPlanApproval: Automatic
 main:
   clusterGroupName: hub
-  patternsOperator:
-    channel: gitops-1.18
+  gitops:
+    channel: "gitops-1.18"
   multiSourceConfig:
     enabled: true
     clusterGroupChartVersion: "0.9.*"
