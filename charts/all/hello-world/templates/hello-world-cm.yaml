@@ -16,6 +16,7 @@ data:
             <h1>Hello World!</h1>
             <br/>
             <h2>
+            Namespace: {{ .Values.global.namespace }} <br>
             Hub Cluster domain is '{{ .Values.global.hubClusterDomain }}' <br>
             Pod is running on Local Cluster Domain '{{ .Values.global.localClusterDomain }}' <br>
             </h2>
