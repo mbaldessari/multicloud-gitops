@@ -42,9 +42,10 @@ clusterGroup:
     acm:
       name: acm
       namespace: open-cluster-management
-      argoProject: hub
-      chart: acm
-      chartVersion: 0.1.*
+      project: hub
+      path: "."
+      repoURL: https://github.com/mbaldessari/acm-chart
+      chartVersion: test-spoke-argocd-git-withpatch
     vault:
       name: vault
       namespace: vault
