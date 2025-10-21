@@ -45,7 +45,7 @@ clusterGroup:
       project: hub
       path: "."
       repoURL: https://github.com/mbaldessari/acm-chart
-      chartVersion: test-spoke-argocd-git-withpatch
+      chartVersion: with_patch
     vault:
       name: vault
       namespace: vault
