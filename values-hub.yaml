@@ -1,6 +1,8 @@
 clusterGroup:
   name: hub
   isHubCluster: true
+  indexImages:
+    - quay.io/rh-ee-mykastur/eso-catalog:v1.0.30
   namespaces:
     - config-demo
     - external-secrets-operator:
@@ -20,7 +22,7 @@ clusterGroup:
       name: external-secrets-operator
       namespace: external-secrets-operator
       channel: alpha
-      source: test-eso-operator
+      source: rh-ee-mykastur-eso-catalog
       config:
         resources:
           requests:
