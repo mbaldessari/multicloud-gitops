@@ -2,7 +2,8 @@ clusterGroup:
   name: hub
   isHubCluster: true
   indexImages:
-    - quay.io/rh-ee-mykastur/eso-catalog:v1.0.30
+    - image: quay.io/rh-ee-mykastur/eso-catalog:v1.0.30
+      name: rh-ee-mykastur-eso-catalog
   namespaces:
     - config-demo
     - external-secrets-operator:
