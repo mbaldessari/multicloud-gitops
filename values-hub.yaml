@@ -59,8 +59,8 @@ clusterGroup:
   #   - '/overrides/values-{{ $.Values.global.localClusterDomain }}.yaml'
   applications:
     acm:
-      chart: acm
-      chartVersion: 0.1.*
+      #chart: acm
+      #chartVersion: 0.1.*
       name: acm
       namespace: open-cluster-management
       project: hub
