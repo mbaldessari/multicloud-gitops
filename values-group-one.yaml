@@ -38,7 +38,7 @@ clusterGroup:
     openshift-external-secrets:
       name: openshift-external-secrets
       namespace: external-secrets
-      project: hub
+      project: default
       path: "."
       repoURL: https://github.com/mbaldessari/openshift-external-secrets
       chartVersion: main
