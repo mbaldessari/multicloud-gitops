@@ -15,7 +15,7 @@ clusterGroup:
     - external-secrets-operator:
         operatorGroup: true
         targetNamespaces: []
-    - external-secrets
+    - golang-external-secrets
   subscriptions:
     eso:
       name: external-secrets-operator
@@ -35,13 +35,19 @@ clusterGroup:
     - config-demo
     - hello-world
   applications:
-    openshift-external-secrets:
-      name: openshift-external-secrets
-      namespace: external-secrets
-      project: default
-      path: "."
-      repoURL: https://github.com/mbaldessari/openshift-external-secrets
-      chartVersion: main
+    # openshift-external-secrets:
+    #   name: openshift-external-secrets
+    #   namespace: external-secrets
+    #   project: default
+    #   path: "."
+    #   repoURL: https://github.com/mbaldessari/openshift-external-secrets
+    #   chartVersion: main
+    golang-external-secrets:
+      name: golang-external-secrets
+      namespace: golang-external-secrets
+      argoProject: default
+      chart: golang-external-secrets
+      chartVersion: 0.1.*
     config-demo:
       name: config-demo
       namespace: config-demo

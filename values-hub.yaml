@@ -9,7 +9,7 @@ clusterGroup:
     - external-secrets-operator:
         operatorGroup: true
         targetNamespaces: []
-    - external-secrets
+    - golang-external-secrets
     - hello-world
     - open-cluster-management
     - vault
@@ -19,19 +19,19 @@ clusterGroup:
       namespace: open-cluster-management
       channel: release-2.14
       # csv: advanced-cluster-management.v2.6.1
-    eso:
-      name: external-secrets-operator
-      namespace: external-secrets-operator
-      channel: alpha
-      source: rh-ee-mykastur-eso-catalog
-      config:
-        resources:
-          requests:
-            cpu: 10m
-            memory: 128Mi
-          limits:
-            cpu: 500m
-            memory: 256Mi
+    # eso:
+    #   name: external-secrets-operator
+    #   namespace: external-secrets-operator
+    #   channel: alpha
+    #   source: rh-ee-mykastur-eso-catalog
+    #   config:
+    #     resources:
+    #       requests:
+    #         cpu: 10m
+    #         memory: 128Mi
+    #       limits:
+    #         cpu: 500m
+    #         memory: 256Mi
   projects:
     - hub
     - config-demo
@@ -73,13 +73,19 @@ clusterGroup:
       project: hub
       chart: hashicorp-vault
       chartVersion: 0.1.*
-    openshift-external-secrets:
-      name: openshift-external-secrets
-      namespace: external-secrets
-      project: hub
-      path: "."
-      repoURL: https://github.com/mbaldessari/openshift-external-secrets
-      chartVersion: main
+    # openshift-external-secrets:
+    #   name: openshift-external-secrets
+    #   namespace: external-secrets
+    #   project: hub
+    #   path: "."
+    #   repoURL: https://github.com/mbaldessari/openshift-external-secrets
+    #   chartVersion: main
+    golang-external-secrets:
+      name: golang-external-secrets
+      namespace: golang-external-secrets
+      argoProject: hub
+      chart: golang-external-secrets
+      chartVersion: 0.1.*      
     config-demo:
       name: config-demo
       namespace: config-demo
