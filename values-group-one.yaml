@@ -17,19 +17,19 @@ clusterGroup:
         targetNamespaces: []
     - golang-external-secrets
   subscriptions:
-    eso:
-      name: external-secrets-operator
-      namespace: external-secrets-operator
-      channel: alpha
-      source: rh-ee-mykastur-eso-catalog
-      config:
-        resources:
-          requests:
-            cpu: 10m
-            memory: 128Mi
-          limits:
-            cpu: 500m
-            memory: 256Mi
+    # eso:
+    #   name: external-secrets-operator
+    #   namespace: external-secrets-operator
+    #   channel: alpha
+    #   source: rh-ee-mykastur-eso-catalog
+    #   config:
+    #     resources:
+    #       requests:
+    #         cpu: 10m
+    #         memory: 128Mi
+    #       limits:
+    #         cpu: 500m
+    #         memory: 256Mi
   projects:
     - eso
     - config-demo
