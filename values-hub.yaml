@@ -1,9 +1,9 @@
 clusterGroup:
   name: hub
   isHubCluster: true
-  indexImages:
-    - image: quay.io/rh-ee-mykastur/eso-catalog:v1.0.30
-      name: rh-ee-mykastur-eso-catalog
+  # indexImages:
+  #   - image: quay.io/rh-ee-mykastur/eso-catalog:v1.0.30
+  #     name: rh-ee-mykastur-eso-catalog
   namespaces:
     - config-demo
     - golang-external-secrets

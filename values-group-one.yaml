@@ -4,9 +4,9 @@ global:
     syncPolicy: Automatic
     installPlanApproval: Automatic
 clusterGroup:
-  indexImages:
-    - image: quay.io/rh-ee-mykastur/eso-catalog:v1.0.30
-      name: rh-ee-mykastur-eso-catalog
+  # indexImages:
+  #   - image: quay.io/rh-ee-mykastur/eso-catalog:v1.0.30
+  #     name: rh-ee-mykastur-eso-catalog
   name: group-one
   isHubCluster: false
   namespaces:
