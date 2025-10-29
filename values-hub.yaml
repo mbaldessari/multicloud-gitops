@@ -6,9 +6,6 @@ clusterGroup:
       name: rh-ee-mykastur-eso-catalog
   namespaces:
     - config-demo
-    - external-secrets-operator:
-        operatorGroup: true
-        targetNamespaces: []
     - golang-external-secrets
     - hello-world
     - open-cluster-management
@@ -97,7 +94,7 @@ clusterGroup:
       project: hello-world
       path: charts/all/hello-world
   imperative:
-    image: quay.io/rhn_support_mbaldess/imperative-container:downstream-eso-support
+    # image: quay.io/rhn_support_mbaldess/imperative-container:downstream-eso-support
     # NOTE: We *must* use lists and not hashes. As hashes lose ordering once parsed by helm
     # The default schedule is every 10 minutes: imperative.schedule
     # Total timeout of all jobs is 1h: imperative.activeDeadlineSeconds
