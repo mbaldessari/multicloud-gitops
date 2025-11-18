@@ -1,6 +1,8 @@
 ---
 global:
   pattern: multicloud-gitops
+  secretStore:
+    backend: "aws-secrets-manager"
   options:
     useCSV: false
     syncPolicy: Automatic
