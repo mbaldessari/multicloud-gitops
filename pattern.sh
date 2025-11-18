@@ -9,8 +9,9 @@ function version {
     echo "$1" | awk -F. '{ printf("%d%03d%03d%03d\n", $1,$2,$3,$4); }'
 }
 
+<<<<<<< HEAD
 if [ -z "${PATTERN_UTILITY_CONTAINER:-}" ]; then
-	PATTERN_UTILITY_CONTAINER="quay.io/validatedpatterns/utility-container"
+	PATTERN_UTILITY_CONTAINER="quay.io/rhn_support_mbaldess/utility-container:v3"
 fi
 # If PATTERN_DISCONNECTED_HOME is set it will be used to populate both PATTERN_UTILITY_CONTAINER
 # and PATTERN_INSTALL_CHART automatically
