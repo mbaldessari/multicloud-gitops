@@ -44,8 +44,11 @@ clusterGroup:
       name: acm
       namespace: open-cluster-management
       argoProject: hub
-      chart: acm
-      chartVersion: 0.1.*
+      path: "."
+      repoURL: https://github.com/mbaldessari/acm-chart
+      chartVersion: fix-spoke-tpl
+      #chart: acm
+      #chartVersion: 0.1.*
     vault:
       name: vault
       namespace: vault
