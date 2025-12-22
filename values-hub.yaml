@@ -44,14 +44,11 @@ clusterGroup:
       name: acm
       namespace: open-cluster-management
       argoProject: hub
-      path: "."
-      chartVersion: custom-gitops-on-spokes
-      repoURL: https://github.com/mbaldessari/acm-chart      
+      chart: acm
+      chartVersion: 0.1.*
       overrides:
         - name: acm.spokeGitops.channel
           value: gitops-1.19
-      #chart: acm
-      #chartVersion: 0.1.*
     vault:
       name: vault
       namespace: vault
