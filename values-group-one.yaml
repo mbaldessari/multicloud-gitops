@@ -12,6 +12,16 @@ clusterGroup:
     - eso
     - config-demo
     - hello-world
+  subscriptions:
+    camelk-prod-dev:
+      name: camel-k
+      namespaces:
+      - hello-world
+      channel: stable-v2
+      csv: camel-k-operator.v2.5.1
+      installPlanApproval: Manual
+      source: community-operators
+      sourceNamespace: openshift-marketplace
   applications:
     golang-external-secrets:
       name: golang-external-secrets
