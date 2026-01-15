@@ -11,4 +11,4 @@ main:
     enabled: true
     # clusterGroupChartVersion: "0.9.*"
     clusterGroupGitRepoUrl: https://github.com/mbaldessari/clustergroup-chart
-    clusterGroupChartGitRevision: clustergroupgitfromspokes
+    clusterGroupChartGitRevision: newbranch
