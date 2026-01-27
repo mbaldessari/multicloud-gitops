@@ -20,5 +20,8 @@ clusterGroup:
       name: openshift-external-secrets
       namespace: external-secrets
       argoProject: hub
-      chart: openshift-external-secrets
-      chartVersion: 0.0.*
+      # chart: openshift-external-secrets
+      # chartVersion: 0.0.*
+      repoURL: https://github.com/mbaldessari/openshift-external-secrets-chart
+      path: "."
+      chartVersion: v3
