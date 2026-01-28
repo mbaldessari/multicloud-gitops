@@ -5,7 +5,8 @@ secretStore:
 
 esoversion: "external-secrets.io/v1beta1"
 configdemosecret:
-  key: secret/data/global/config-demo
+  # key: secret/data/global/config-demo
+  key: myapp/prod/config-demo
 
 global:
   hubClusterDomain: hub.example.com
