@@ -3,7 +3,7 @@ global:
   pattern: multicloud-gitops
   secretStore:
     backend: "vault"
-    # backend: "aws-secrets-manager"
+    backend: "aws-secrets-manager"
   options:
     useCSV: false
     syncPolicy: Automatic
