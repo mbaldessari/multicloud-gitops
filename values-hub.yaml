@@ -1,4 +1,9 @@
 clusterGroup:
+  argoCD:
+    initContainers:
+    - command: ["bash", "-c", "echo"]
+      image: quay.io/validatedpatterns/imperative-container:v1
+      name: test
   name: hub
   # Namespace is a dictionary for easier overriding (lists are supported as well)
   namespaces:
