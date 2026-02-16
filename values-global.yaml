@@ -10,4 +10,4 @@ main:
   multiSourceConfig:
     enabled: true
     clusterGroupGitRepoUrl: https://github.com/mbaldessari/clustergroup-chart
-    clusterGroupChartGitRevision: add-volumes-and-cmp-mounts
+    clusterGroupChartGitRevision: improve-reposerver
