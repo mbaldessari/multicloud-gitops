@@ -7,6 +7,9 @@ global:
     installPlanApproval: Automatic
 main:
   clusterGroupName: hub
+  gitops:
+    channel: gitops-1.20
+    catalogSource: gitops-test-catalog
   multiSourceConfig:
     enabled: true
     clusterGroupChartVersion: "0.9.*"
