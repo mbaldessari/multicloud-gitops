@@ -7,15 +7,15 @@ global:
     installPlanApproval: Automatic
 main:
   clusterGroupName: hub
-  gitops:
-    channel: gitops-1.20
-    operatorSource: gitops-test-catalog
+  #gitops:
+  #  channel: gitops-1.20
+  #  operatorSource: gitops-test-catalog
   multiSourceConfig:
     enabled: true
     clusterGroupChartVersion: "0.9.*"
 
-acm:
-  spokeGitops:
-    source: gitops-test-catalog
+#acm:
+  #spokeGitops:
+  #  source: gitops-test-catalog
     # -- Default gitops channel to install on remote clusters
-    channel: "gitops-1.20"
+  #  channel: "gitops-1.20"
