@@ -12,7 +12,7 @@ main:
   #  operatorSource: gitops-test-catalog
   multiSourceConfig:
     enabled: true
-    clusterGroupChartVersion: "0.9.*"
+    clusterGroupChartVersion: "0.9.45"
 
 #acm:
   #spokeGitops:

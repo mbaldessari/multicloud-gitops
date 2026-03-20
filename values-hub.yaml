@@ -46,7 +46,7 @@ clusterGroup:
       path: "."
       # chart: acm
       repoURL: https://github.com/mbaldessari/acm-chart
-      chartVersion: master_without_patch
+      chartVersion: different_workaround
     vault:
       name: vault
       namespace: vault
