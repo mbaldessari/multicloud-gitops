@@ -44,7 +44,7 @@ clusterGroup:
       namespace: open-cluster-management
       argoProject: hub
       chart: acm
-      chartVersion: 0.1.12
+      chartVersion: 0.1.22
     vault:
       name: vault
       namespace: vault
