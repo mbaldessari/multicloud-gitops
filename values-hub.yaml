@@ -46,7 +46,7 @@ clusterGroup:
       # chart: acm
       # chartVersion: 0.1.*
       path: "."
-      chartVersion: argocdagents
+      chartVersion: freshup
       repoURL: https://github.com/mbaldessari/acm-chart
     vault:
       name: vault
