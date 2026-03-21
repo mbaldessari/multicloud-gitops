@@ -61,6 +61,11 @@ clusterGroup:
       argoProject: hub
       chart: golang-external-secrets
       chartVersion: 0.2.*
+    argoagent-hub:
+      name: argoagent-hub
+      namespace: argoagent-hub
+      argoProject: hub
+      path: charts/hub/argoagent-hub
     config-demo:
       name: config-demo
       namespace: config-demo
