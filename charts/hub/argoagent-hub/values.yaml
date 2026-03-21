@@ -1,0 +1,4 @@
+argocd:
+  name: argoagent-hub
+  # allowedNamespaces for the agent principal
+  allowedNamespaces: []

@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1beta1
+kind: ArgoCD
+metadata:
+  name: {{ .Values.argocd.name }}
+  namespace: argoagent-hub
+spec:
+  argoCDAgent:
+    principal:
+      enabled: true
+      {{- if .Values.argocd.allowedNamespaces }}
+      allowedNamespaces:
+        {{- toYaml .Values.argocd.allowedNamespaces | nindent 8 }}
+      {{- end }}
+  server:
+    route:
+      enabled: true
+  rbac:
+    defaultPolicy: role:readonly
+    policy: |
+      g, system:cluster-admins, role:admin
+      g, cluster-admins, role:admin
+      g, admin, role:admin
+    scopes: '[groups,email]'

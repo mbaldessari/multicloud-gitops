@@ -1,0 +1,5 @@
+apiVersion: v2
+name: argoagent-hub
+description: ArgoCD instance with agent principal mode enabled for ACM managed clusters
+version: 0.1.0
+type: application
