@@ -2,7 +2,7 @@ clusterGroup:
   name: hub
   # Namespace is a dictionary for easier overriding (lists are supported as well)
   namespaces:
-    cert-manager:
+    cert-manager-operator:
     open-cluster-management:
     vault:
     golang-external-secrets:
