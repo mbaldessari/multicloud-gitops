@@ -8,7 +8,11 @@ spec:
     principal:
       enabled: true
       tls:
-        insecureGenerate: true
+        rootCASecretName: argocd-ca
+        secretName: argocd-agent-principal-tls
+      resourceProxy:
+        caSecretName: argocd-ca
+        secretName: argocd-agent-resource-proxy-tls
       {{- if .Values.argocd.allowedNamespaces }}
       allowedNamespaces:
         {{- toYaml .Values.argocd.allowedNamespaces | nindent 8 }}
