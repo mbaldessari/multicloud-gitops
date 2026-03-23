@@ -11,9 +11,9 @@ clusterGroup:
     acm:
       name: advanced-cluster-management
       namespace: open-cluster-management
-      channel: release-2.15
-      csv: advanced-cluster-management.v2.15.0
-      installPlanApproval: Manual
+      channel: release-2.16
+      # csv: advanced-cluster-management.v2.15.0
+      # installPlanApproval: Manual
   argoProjects:
     - hub
     - config-demo
@@ -44,11 +44,11 @@ clusterGroup:
       name: acm
       namespace: open-cluster-management
       argoProject: hub
-      # chart: acm
-      # chartVersion: 0.1.*
-      path: "."
-      chartVersion: freshup
-      repoURL: https://github.com/mbaldessari/acm-chart
+      chart: acm
+      chartVersion: 0.2.*
+      # path: "."
+      # chartVersion: freshup
+      # repoURL: https://github.com/mbaldessari/acm-chart
     vault:
       name: vault
       namespace: vault
