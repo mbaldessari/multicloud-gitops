@@ -11,6 +11,10 @@ clusterGroup:
     - eso
     - config-demo
     - hello-world
+  sharedValueFiles:
+    - '/mtf.yaml'
+    - '/overrides/values-{{ $.Values.global.clusterPlatform }}.yaml'
+    - '/overrides/values-{{ $.Values.global.clusterVersion }}-{{ $.Values.clusterGroup.name }}.yaml'
   applications:
     golang-external-secrets:
       name: golang-external-secrets
