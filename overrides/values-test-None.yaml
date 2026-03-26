@@ -1,2 +1,9 @@
-bar:
-  baz
+clusterGroup:
+  namespaces:
+    yomama:
+    openshift-kmm:
+  subscriptions:
+    testme:
+      name: kernel-module-management
+      channel: stable
+      namespace: openshift-kmm
