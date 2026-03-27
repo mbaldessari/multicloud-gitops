@@ -7,6 +7,10 @@ global:
     installPlanApproval: Automatic
 main:
   clusterGroupName: hub
+  # This way we can install the customer operator via ./hack/operator-build-script.sh
+  # and then install this pattern via ./pattern.sh make install
+  patternsOperator:
+    enableSubscription: false
   multiSourceConfig:
     enabled: true
     # clusterGroupChartVersion: "0.9.*"
