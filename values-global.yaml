@@ -13,6 +13,7 @@ main:
     enableSubscription: false
   multiSourceConfig:
     enabled: true
+    helmRepoUrl: quay.io/validatedpatterns
     # clusterGroupChartVersion: "0.9.*"
     clusterGroupGitRepoUrl: https://github.com/mbaldessari/clustergroup-chart
     clusterGroupChartGitRevision: ourown-gitops
