@@ -1,9 +1,8 @@
 clusterGroup:
   namespaces:
-    yomama:
-    openshift-kmm:
+    amqbroker:
+      operatorGroup: true
   subscriptions:
-    testme:
-      name: kernel-module-management
-      channel: stable
-      namespace: openshift-kmm
+    amqbroker:
+      name: amq-broker-rhel8
+      namespace: amqbroker
