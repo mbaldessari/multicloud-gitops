@@ -9,11 +9,11 @@ main:
   clusterGroupName: hub
   # This way we can install the customer operator via ./hack/operator-build-script.sh
   # and then install this pattern via ./pattern.sh make install
-  patternsOperator:
-    enableSubscription: false
+  #patternsOperator:
+  #  enableSubscription: false
   multiSourceConfig:
     enabled: true
-    helmRepoUrl: quay.io/validatedpatterns
+    #helmRepoUrl: quay.io/validatedpatterns
     # clusterGroupChartVersion: "0.9.*"
     clusterGroupGitRepoUrl: https://github.com/mbaldessari/clustergroup-chart
     clusterGroupChartGitRevision: ourown-gitops
