@@ -7,6 +7,8 @@ global:
     installPlanApproval: Automatic
 main:
   clusterGroupName: hub
+  patternsOperator:
+    enableSubscription: false
   multiSourceConfig:
     enabled: true
     clusterGroupChartVersion: "0.9.*"
