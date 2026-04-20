@@ -50,8 +50,11 @@ clusterGroup:
       name: acm
       namespace: open-cluster-management
       argoProject: hub
-      chart: acm
-      chartVersion: 0.2.*
+      path: "."
+      chartVersion: gitops-1.20
+      repoURL: https://github.com/mbaldessari/acm-chart      
+      # chart: acm
+      # chartVersion: 0.2.*
     vault:
       name: vault
       namespace: vault
