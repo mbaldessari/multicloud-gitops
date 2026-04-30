@@ -10,5 +10,6 @@ main:
   gitops:
     channel: gitops-1.20
   multiSourceConfig:
+    helmRepoUrl: quay.io/validatedpatterns
     enabled: true
     clusterGroupChartVersion: "0.9.*"
