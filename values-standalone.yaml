@@ -21,6 +21,7 @@ clusterGroup:
   # We can use self-referential variables because the chart calls the tpl function with these variables defined
   sharedValueFiles:
     - '/overrides/values-{{ $.Values.global.clusterPlatform }}.yaml'
+    - '/overrides/values-vault-policies.yaml'
   # sharedValueFiles is a flexible mechanism that will add the listed valuefiles to every app defined in the
   # applications section.
   #
@@ -58,6 +59,7 @@ clusterGroup:
     # imagePullPolicy is set to always: imperative.imagePullPolicy
     # For additional overrides that apply to the jobs, please refer to
     # https://validatedpatterns.io/patterns/multicloud-gitops/mcg-imperative-actions/
+    image: quay.io/rhn_support_mbaldess/imperative-container:jwt_fix1
     jobs:
       - name: hello-world
         # ansible playbook to be run
