@@ -12,3 +12,6 @@ main:
     # clusterGroupChartVersion: "0.9.*"
     clusterGroupGitRepoUrl: https://github.com/mbaldessari/clustergroup-chart
     clusterGroupChartGitRevision: reproduce_self_heal
+acm:
+  spokeGitops:
+    channel: gitops-1.20
