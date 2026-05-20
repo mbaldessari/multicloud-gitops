@@ -14,7 +14,7 @@ clusterGroup:
     golang-external-secrets:
       name: golang-external-secrets
       namespace: golang-external-secrets
-      argoProject: hub
+      argoProject: eso
       chart: golang-external-secrets
       chartVersion: 0.2.*      
     config-demo:
