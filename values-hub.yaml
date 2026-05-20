@@ -4,10 +4,7 @@ clusterGroup:
   namespaces:
     open-cluster-management:
     vault:
-    external-secrets-operator:
-      operatorGroup: true
-      targetNamespaces: []
-    external-secrets:
+    golang-external-secrets:
     config-demo:
     hello-world:
   subscriptions:
@@ -16,10 +13,6 @@ clusterGroup:
       namespace: open-cluster-management
       channel: release-2.16
       # csv: advanced-cluster-management.v2.6.1
-    eso:
-      name: openshift-external-secrets-operator
-      namespace: external-secrets-operator
-      channel: stable-v1
   argoProjects:
     - hub
     - config-demo
@@ -58,12 +51,12 @@ clusterGroup:
       argoProject: hub
       chart: hashicorp-vault
       chartVersion: 0.1.*
-    openshift-external-secrets:
-      name: openshift-external-secrets
-      namespace: external-secrets
+    golang-external-secrets:
+      name: golang-external-secrets
+      namespace: golang-external-secrets
       argoProject: hub
-      chart: openshift-external-secrets
-      chartVersion: 0.0.*
+      chart: golang-external-secrets
+      chartVersion: 0.2.*      
     config-demo:
       name: config-demo
       namespace: config-demo
