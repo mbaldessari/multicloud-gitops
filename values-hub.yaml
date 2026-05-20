@@ -59,7 +59,7 @@ clusterGroup:
       #chartVersion: 0.2.*      
       path: "."
       chartVersion: eso_chart_update
-      repoURL: https://github.com/darkdoc/golang-external-secrets
+      repoURL: https://github.com/darkdoc/golang-external-secrets-chart
     config-demo:
       name: config-demo
       namespace: config-demo
