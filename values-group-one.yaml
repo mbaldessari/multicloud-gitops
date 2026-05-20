@@ -17,6 +17,7 @@ clusterGroup:
       argoProject: eso
       # chart: golang-external-secrets
       # chartVersion: 0.2.*      
+      path: "."
       chartVersion: eso_chart_update
       repoURL: https://github.com/darkdoc/golang-external-secrets-chart
     config-demo:
