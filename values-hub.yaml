@@ -55,8 +55,11 @@ clusterGroup:
       name: golang-external-secrets
       namespace: golang-external-secrets
       argoProject: hub
-      chart: golang-external-secrets
-      chartVersion: 0.2.*      
+      #chart: golang-external-secrets
+      #chartVersion: 0.2.*      
+      path: "."
+      chartVersion: eso_chart_update
+      repoURL: https://github.com/darkdoc/golang-external-secrets
     config-demo:
       name: config-demo
       namespace: config-demo
