@@ -70,11 +70,11 @@ clusterGroup:
       namespace: hello-world
       argoProject: hello-world
       path: charts/all/hello-world
-    vp-manage-proxy-cluster-ca-chart:
-      name: vp-manage-proxy-cluster-ca-chart
-      namespace: vp-manage-proxy-cluster-ca-chart
-      argoProject: hub
-      path: charts/all/vp-manage-proxy-cluster-ca-chart          
+    # vp-manage-proxy-cluster-ca-chart:
+    #   name: vp-manage-proxy-cluster-ca-chart
+    #   namespace: vp-manage-proxy-cluster-ca-chart
+    #   argoProject: hub
+    #   path: charts/all/vp-manage-proxy-cluster-ca-chart          
   imperative:
     # NOTE: We *must* use lists and not hashes. As hashes lose ordering once parsed by helm
     # The default schedule is every 10 minutes: imperative.schedule
