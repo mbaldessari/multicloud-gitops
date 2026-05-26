@@ -11,5 +11,5 @@ main:
   multiSourceConfig:
     enabled: true
     # clusterGroupChartVersion: "0.9.*"
-    clusterGroupGitRepoUrl: https://github.com/darkdoc/clustergroup-chart
+    clusterGroupGitRepoUrl: https://github.com/mbaldessari/clustergroup-chart
     clusterGroupChartGitRevision: single_argocd_2
