@@ -1,4 +1,5 @@
 clusterGroup:
+  singleArgoCD: true
   name: group-one
   # Namespace is a dictionary for easier overriding (lists are supported as well)
   namespaces:
