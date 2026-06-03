@@ -1,0 +1,14 @@
+acm:
+  extraResourceHealthChecks:
+    - group: app
+      kind: Deployment
+      check: |
+        hs = {}
+        if obj.status ~= nil then
+          if obj.status.readyReplicas == obj.status.replicas then
+            hs.status = "Healthy"
+          else
+            hs.status = "Progressing"
+          end
+        end
+        return hs
