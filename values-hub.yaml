@@ -53,7 +53,7 @@ clusterGroup:
       argoProject: hub
       # chart: acm
       path: "."
-      chartVersion: default-hc
+      chartVersion: single-argo-cleanedup
       repoURL: https://github.com/mbaldessari/acm-chart      
     vault:
       name: vault
