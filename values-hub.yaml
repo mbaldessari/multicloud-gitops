@@ -27,7 +27,7 @@ clusterGroup:
   # Explicitly mention the cluster-state based overrides we plan to use for this pattern.
   # We can use self-referential variables because the chart calls the tpl function with these variables defined
   sharedValueFiles:
-    - '/overrides/custom-acm.yaml'
+    # - '/overrides/custom-acm.yaml'
     - '/overrides/values-{{ $.Values.global.clusterPlatform }}.yaml'
     - '/overrides/values-{{ $.Values.global.clusterVersion }}-{{ $.Values.clusterGroup.name }}.yaml'
   # sharedValueFiles is a flexible mechanism that will add the listed valuefiles to every app defined in the
@@ -53,7 +53,7 @@ clusterGroup:
       argoProject: hub
       # chart: acm
       path: "."
-      chartVersion: custom-hc2
+      chartVersion: default-hc
       repoURL: https://github.com/mbaldessari/acm-chart      
     vault:
       name: vault
