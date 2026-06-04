@@ -5,7 +5,7 @@ global:
     useCSV: false
     syncPolicy: Automatic
     installPlanApproval: Automatic
-  # singleArgoCD: true
+  singleArgoCD: false
 main:
   clusterGroupName: hub
   multiSourceConfig:
