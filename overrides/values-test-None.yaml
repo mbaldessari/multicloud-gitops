@@ -1,0 +1,8 @@
+clusterGroup:
+  namespaces:
+    amqbroker:
+      operatorGroup: true
+  subscriptions:
+    amqbroker:
+      name: amq-broker-rhel8
+      namespace: amqbroker
