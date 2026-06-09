@@ -53,7 +53,8 @@ clusterGroup:
       argoProject: hub
       # chart: acm
       path: "."
-      chartVersion: single_argocd_sharedvalue
+      chartVersion: argocd-vp-plugin
+      # single_argocd_sharedvalue
       repoURL: https://github.com/mbaldessari/acm-chart      
     vault:
       name: vault
