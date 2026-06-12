@@ -51,7 +51,10 @@ clusterGroup:
       namespace: open-cluster-management
       argoProject: hub
       chart: acm
-      chartVersion: 0.2.*
+      chartVersion: 0.1.*
+      overrides:
+        - names: acm.spokeGitops.channel
+          value: "gitops-1.19"
     vault:
       name: vault
       namespace: vault
