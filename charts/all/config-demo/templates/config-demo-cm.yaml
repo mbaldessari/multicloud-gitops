@@ -13,6 +13,8 @@ data:
             <title>Config Demo</title>
         </head>
           <body>
+            <h1>{{ .Values.configdemotext }}</h1>
+            <br/>
             <h1>
             Hub Cluster domain is '{{ .Values.global.hubClusterDomain }}' <br>
             Pod is running on Local Cluster Domain '{{ .Values.global.localClusterDomain }}' <br>
