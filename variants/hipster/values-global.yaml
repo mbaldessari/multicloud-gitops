@@ -1,4 +1,5 @@
 ---
+configdemotext: "HIPSTER VARIANT"
 global:
   pattern: multicloud-gitops
   singleArgoCD: true
