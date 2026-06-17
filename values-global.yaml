@@ -8,10 +8,10 @@ global:
     installPlanApproval: Automatic
 main:
   clusterGroupName: hub
-  patternsOperator:
-    enableSubscription: false
+  # patternsOperator:
+  #   enableSubscription: false
   multiSourceConfig:
     enabled: true
     # clusterGroupChartVersion: "0.9.*"
     clusterGroupGitRepoUrl: https://github.com/mbaldessari/clustergroup-chart
-    clusterGroupChartGitRevision: variants1
+    clusterGroupChartGitRevision: fix-4.22
