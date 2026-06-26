@@ -113,6 +113,8 @@ podman run -it --rm --pull=newer \
     -e TOKEN_NAMESPACE \
     -e TOKEN_SECRET \
     -e UUID_FILE \
+    -e SPOKECONFIG \
+    -e HUBCONFIG \
     -e VALUES_SECRET \
     "${PKI_HOST_MOUNT_ARGS[@]}" \
     -v "$(pwd -P)":"$(pwd -P)" \
