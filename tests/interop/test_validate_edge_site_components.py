@@ -59,7 +59,7 @@ def test_check_pod_status(openshift_dyn_client):
 @pytest.mark.validate_argocd_applications_health_edge_site
 def test_validate_argocd_applications_health_edge_site(openshift_dyn_client):
     logger.info("Get all applications deployed by argocd on edge site")
-    projects = ["vp-gitops", "multicloud-gitops-group-one"]
+    projects = ["vp-gitops", "multicloud-gitops-spokes-one"]
     unhealthy_apps = application.get_argocd_application_status(
         openshift_dyn_client, projects
     )
