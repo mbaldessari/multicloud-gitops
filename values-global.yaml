@@ -7,8 +7,8 @@ global:
     syncPolicy: Automatic
     installPlanApproval: Automatic
 main:
-  # clusterGroupName: hub
-  variant: hub
+  clusterGroupName: hub
+  # variant: hub
   patternsOperator:
     enableSubscription: false
   multiSourceConfig:
