@@ -9,8 +9,8 @@ global:
 main:
   clusterGroupName: hub
   # variant: hub
-  patternsOperator:
-    enableSubscription: false
+  #patternsOperator:
+  #  enableSubscription: false
   multiSourceConfig:
     enabled: true
     clusterGroupChartVersion: "0.9.*"
