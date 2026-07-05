@@ -7,6 +7,14 @@ global:
     syncPolicy: Automatic
     installPlanApproval: Automatic
 main:
+  gitops:
+    argoRBAC: |
+      defaultPolicy: role:readonly
+      policy: |-
+        g, system:cluster-admins, role:admin
+        g, mortaccitua, role:admin
+        g, cluster-admins, role:admin
+        g, admin, role:admin
   clusterGroupName: hub
   patternsOperator:
     enableSubscription: false
