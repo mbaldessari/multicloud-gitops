@@ -8,6 +8,7 @@ global:
     installPlanApproval: Automatic
 main:
   clusterGroupName: hub
+  variant: yomama
   multiSourceConfig:
     enabled: true
     clusterGroupChartVersion: "0.9.*"
