@@ -7,7 +7,9 @@ global:
     syncPolicy: Automatic
     installPlanApproval: Automatic
 main:
-  clusterGroupName: hub
+  clusterGroupName: broken
+  patternsOperator:
+    enableSubscription: false
   multiSourceConfig:
     enabled: true
     clusterGroupChartVersion: "0.9.*"
