@@ -1,0 +1,81 @@
+---
+name: Weekly Patternizer Upgrade Check
+
+on:
+  schedule:
+    # Run every Sunday at 2 AM UTC
+    - cron: '0 2 * * 0'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  patternizer-upgrade:
+    name: Check for patternizer changes
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Run patternizer upgrade
+        run: |
+          podman run --pull=newer -v "$PWD:$PWD:z" -w "$PWD" quay.io/validatedpatterns/patternizer:latest upgrade
+
+      - name: Create or update PR if changes detected
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh auth setup-git
+          BRANCH="automated/patternizer-upgrade"
+
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes detected after patternizer upgrade"
+            exit 0
+          fi
+
+          echo "Changes detected after patternizer upgrade:"
+          git diff --cached --name-only
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Check if the branch already exists on the remote
+          if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+            git fetch origin "$BRANCH"
+            git checkout "$BRANCH"
+            git reset --hard origin/main
+            git checkout main -- .
+            # Re-run the upgrade on the branch
+            podman run --pull=newer -v "$PWD:$PWD:z" -w "$PWD" quay.io/validatedpatterns/patternizer:latest upgrade
+            git add -A
+            if git diff --cached --quiet; then
+              echo "Existing PR branch is already up to date"
+              exit 0
+            fi
+          else
+            git checkout -b "$BRANCH"
+          fi
+
+          git commit -m "chore: update patternizer-managed files"
+          git push --force-with-lease origin "$BRANCH"
+
+          # Create PR if one doesn't already exist
+          EXISTING_PR=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number')
+          if [ -z "$EXISTING_PR" ]; then
+            gh pr create \
+              --title "chore: automated patternizer upgrade" \
+              --body "This PR was automatically created by the weekly patternizer upgrade workflow.
+
+          It contains updates to patternizer-managed files. Please review the changes and merge if appropriate." \
+              --base main \
+              --head "$BRANCH"
+            echo "PR created"
+          else
+            echo "Existing PR #${EXISTING_PR} updated"
+          fi
