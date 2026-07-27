@@ -16,7 +16,7 @@ main:
         resources:
           limits:
             cpu: "4"
-            memory: "16Gi"  
+            memory: "17Gi"  
   multiSourceConfig:
     enabled: true
     clusterGroupChartVersion: "0.9.*"
