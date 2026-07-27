@@ -7,7 +7,16 @@ global:
     syncPolicy: Automatic
     installPlanApproval: Automatic
 main:
+  patternsOperator:
+    enableSubscription: false  
   clusterGroupName: hub
+  gitops:
+    customArgoYaml: |
+      controller:
+        resources:
+          limits:
+            cpu: "4"
+            memory: "16Gi"  
   multiSourceConfig:
     enabled: true
     clusterGroupChartVersion: "0.9.*"
