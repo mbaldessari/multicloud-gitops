@@ -11,3 +11,11 @@ main:
   multiSourceConfig:
     enabled: true
     clusterGroupChartVersion: "0.9.*"
+
+acm:
+  customArgoYaml:
+    controller:
+      resources:
+        limits:
+          cpu: "4"
+          memory: 17Gi
