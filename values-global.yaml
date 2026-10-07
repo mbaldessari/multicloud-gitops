@@ -9,7 +9,7 @@ global:
 main:
   variant: hub
   gitops:
-    channel: gitops-1.22
+    channel: gitops-1.21
   multiSourceConfig:
     enabled: true
     clusterGroupChartVersion: "0.9.*"
