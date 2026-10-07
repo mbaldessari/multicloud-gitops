@@ -56,8 +56,11 @@ clusterGroup:
       name: vault
       namespace: vault
       argoProject: hub
-      chart: hashicorp-vault
-      chartVersion: 0.1.*
+      #chart: hashicorp-vault
+      #chartVersion: 0.1.*
+      path: "."
+      chartVersion: helm-4-regression
+      repoURL: https://github.com/mbaldessari/hashicorp-vault
     openshift-external-secrets:
       name: openshift-external-secrets
       namespace: external-secrets
