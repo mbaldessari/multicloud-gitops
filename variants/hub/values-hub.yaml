@@ -58,8 +58,7 @@ clusterGroup:
       argoProject: hub
       # chart: hashicorp-vault
       # chartVersion: 0.1.*
-      chartVersion: main
-      #vault-2.0
+      chartVersion: vault-2.0
       path: "."
       repoURL: https://github.com/mbaldessari/hashicorp-vault-chart
     openshift-external-secrets:
