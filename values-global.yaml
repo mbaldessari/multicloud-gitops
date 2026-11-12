@@ -8,6 +8,8 @@ global:
     installPlanApproval: Automatic
 main:
   variant: hub
+  gitops:
+    applicationHealthCheckEnabled: true
   multiSourceConfig:
     enabled: true
     clusterGroupChartVersion: "0.9.*"
