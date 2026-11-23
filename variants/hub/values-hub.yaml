@@ -53,7 +53,7 @@ clusterGroup:
       #chart: acm
       #chartVersion: 0.2.*
       path: "."
-      chartVersion: v3.5.6-bandini-fix1
+      chartVersion: v3.6.2-bandini-fix1
       repoURL: https://github.com/mbaldessari/acm-chart
     vault:
       name: vault
