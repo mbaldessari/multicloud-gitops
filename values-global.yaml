@@ -10,4 +10,4 @@ main:
   variant: hub
   multiSourceConfig:
     enabled: true
-    clusterGroupChartVersion: "0.9.*"
+    clusterGroupChartVersion: "0.9.59"
